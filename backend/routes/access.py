@@ -37,6 +37,12 @@ def public_theme():
     return {"theme": theme if theme in allowed else "auto"}
 
 
+# Même besoin pour la langue : la page de connexion suit le réglage du serveur, pas un ancien choix du navigateur
+@router.get("/api/language")
+def public_language():
+    return {"language": Settings.load_settings().get("UI_LANGUAGE", "auto")}
+
+
 # Page HTML avec le numéro de version (marqueur {{VERSION}}) : jamais écrit en dur dans les pages
 def page_response(name):
     html = (STATIC_DIR / name).read_text(encoding="utf-8").replace("{{VERSION}}", VERSION)

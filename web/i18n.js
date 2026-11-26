@@ -201,6 +201,16 @@ window.GentleSeedI18n = (() => {
     }
   }
 
-  return {locale, t, textNode, apply, get language() { return language; }, supported};
+  // Pages sans session (connexion, accès refusé) : langue réglée sur le serveur ; à défaut, celle du navigateur
+  async function applyServer() {
+    let preferred = localStorage.getItem('gentleseed.locale') || 'auto';
+    try {
+      const response = await fetch('api/language', {credentials: 'same-origin', cache: 'no-store'});
+      if (response.ok) preferred = (await response.json()).language || 'auto';
+    } catch (_) {}
+    return apply(preferred);
+  }
+
+  return {locale, t, textNode, apply, applyServer, get language() { return language; }, supported};
 })();
 // =================================================
