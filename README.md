@@ -2,7 +2,7 @@
 
 <h1 align="center">
 <br>
-<a href="https://github.com/KLG-Digital"><img src="./web/assets/gentleseed-logo.svg" alt="GentleSeed Icon" width="140"></a>
+<a href="https://github.com/KLG-Digital"><img src="https://raw.githubusercontent.com/KLG-Digital/GentleSeed/main/web/assets/icon-512.png" alt="GentleSeed Icon" width="140"></a>
 <br>
 <b>GentleSeed</b>
 <br>
@@ -62,11 +62,11 @@ Screenshots of the interface in English (14 languages available).
 
 | Dashboard | Searches |
 |:---:|:---:|
-| <img src="./docs/screenshots/dashboard-desktop.webp" alt="Dashboard" width="420"> | <img src="./docs/screenshots/search-desktop.webp" alt="Searches" width="420"> |
+| <img src="https://raw.githubusercontent.com/KLG-Digital/GentleSeed/main/docs/screenshots/dashboard-desktop.webp" alt="Dashboard" width="420"> | <img src="https://raw.githubusercontent.com/KLG-Digital/GentleSeed/main/docs/screenshots/search-desktop.webp" alt="Searches" width="420"> |
 | In progress | Logs |
-| <img src="./docs/screenshots/running-desktop.webp" alt="In progress" width="420"> | <img src="./docs/screenshots/logs-desktop.webp" alt="Logs" width="420"> |
+| <img src="https://raw.githubusercontent.com/KLG-Digital/GentleSeed/main/docs/screenshots/running-desktop.webp" alt="In progress" width="420"> | <img src="https://raw.githubusercontent.com/KLG-Digital/GentleSeed/main/docs/screenshots/logs-desktop.webp" alt="Logs" width="420"> |
 | Settings | System |
-| <img src="./docs/screenshots/settings-desktop.webp" alt="Settings" width="420"> | <img src="./docs/screenshots/system-desktop.webp" alt="System" width="420"> |
+| <img src="https://raw.githubusercontent.com/KLG-Digital/GentleSeed/main/docs/screenshots/settings-desktop.webp" alt="Settings" width="420"> | <img src="https://raw.githubusercontent.com/KLG-Digital/GentleSeed/main/docs/screenshots/system-desktop.webp" alt="System" width="420"> |
 
 </details>
 
@@ -76,7 +76,7 @@ Screenshots of the interface in English (14 languages available).
 
 | Dashboard | Searches | In progress | Logs |
 |:---:|:---:|:---:|:---:|
-| <img src="./docs/screenshots/dashboard-mobile.webp" alt="Dashboard (mobile)" width="170"> | <img src="./docs/screenshots/search-mobile.webp" alt="Searches (mobile)" width="170"> | <img src="./docs/screenshots/running-mobile.webp" alt="In progress (mobile)" width="170"> | <img src="./docs/screenshots/logs-mobile.webp" alt="Logs (mobile)" width="170"> |
+| <img src="https://raw.githubusercontent.com/KLG-Digital/GentleSeed/main/docs/screenshots/dashboard-mobile.webp" alt="Dashboard (mobile)" width="170"> | <img src="https://raw.githubusercontent.com/KLG-Digital/GentleSeed/main/docs/screenshots/search-mobile.webp" alt="Searches (mobile)" width="170"> | <img src="https://raw.githubusercontent.com/KLG-Digital/GentleSeed/main/docs/screenshots/running-mobile.webp" alt="In progress (mobile)" width="170"> | <img src="https://raw.githubusercontent.com/KLG-Digital/GentleSeed/main/docs/screenshots/logs-mobile.webp" alt="Logs (mobile)" width="170"> |
 
 </details>
 
@@ -88,13 +88,13 @@ Screenshots of the interface in English (14 languages available).
 
 | Dark | Light |
 |:---:|:---:|
-| <img src="./docs/screenshots/theme-dark.webp" alt="Dark" width="420"> | <img src="./docs/screenshots/theme-light.webp" alt="Light" width="420"> |
+| <img src="https://raw.githubusercontent.com/KLG-Digital/GentleSeed/main/docs/screenshots/theme-dark.webp" alt="Dark" width="420"> | <img src="https://raw.githubusercontent.com/KLG-Digital/GentleSeed/main/docs/screenshots/theme-light.webp" alt="Light" width="420"> |
 | Gentle Mates · Pastel pink | Gentle Mates · Dark |
-| <img src="./docs/screenshots/theme-rose.webp" alt="Pastel pink" width="420"> | <img src="./docs/screenshots/theme-black.webp" alt="Gentle Mates · Dark" width="420"> |
+| <img src="https://raw.githubusercontent.com/KLG-Digital/GentleSeed/main/docs/screenshots/theme-rose.webp" alt="Pastel pink" width="420"> | <img src="https://raw.githubusercontent.com/KLG-Digital/GentleSeed/main/docs/screenshots/theme-black.webp" alt="Gentle Mates · Dark" width="420"> |
 | Gentle Mates · Paris (lavender) | Gentle Mates · Blue |
-| <img src="./docs/screenshots/theme-paris.webp" alt="Paris (lavender)" width="420"> | <img src="./docs/screenshots/theme-worlds.webp" alt="Blue" width="420"> |
+| <img src="https://raw.githubusercontent.com/KLG-Digital/GentleSeed/main/docs/screenshots/theme-paris.webp" alt="Paris (lavender)" width="420"> | <img src="https://raw.githubusercontent.com/KLG-Digital/GentleSeed/main/docs/screenshots/theme-worlds.webp" alt="Blue" width="420"> |
 | Gentle Mates · Violet (Paris 2027) | |
-| <img src="./docs/screenshots/theme-violet.webp" alt="Violet (Paris 2027)" width="420"> | |
+| <img src="https://raw.githubusercontent.com/KLG-Digital/GentleSeed/main/docs/screenshots/theme-violet.webp" alt="Violet (Paris 2027)" width="420"> | |
 
 </details>
 
