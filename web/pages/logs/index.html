@@ -1,0 +1,47 @@
+<!-- ======================== JOURNAUX ======================== -->
+<section class="page" id="page-logs" hidden>
+  <!-- Titre de la page -->
+  <div class="page-heading">
+    <div>
+      <div class="kicker">ACTIVITY</div>
+      <h1>Logs</h1>
+      <p>All the engine's events, gathered here with their details and filters.</p>
+    </div>
+  </div>
+  <!-- Filtres et boutons du tableau -->
+  <div class="table-section-bar">
+    <div class="table-tools">
+      <label class="inline-filter">Search <input id="logsearch" type="search" placeholder="Filter messages" aria-label="Search the logs"></label>
+      <label class="inline-filter">Level <select id="loglevel">
+        <option value="ALL">All</option>
+        <option value="INFO">INFO</option>
+        <option value="WARN">WARN</option>
+        <option value="ERROR">ERROR</option>
+        <option value="DEBUG">DEBUG</option>
+      </select></label>
+      <span class="live"><i></i> Automatic update</span>
+    </div>
+    <div class="table-tools">
+      <button id="refresh" type="button" class="button button-subtle"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-refresh"/></svg> Refresh</button>
+      <button type="button" class="button button-subtle table-options-btn" data-table-options="events"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-gear"/></svg> Table options</button>
+    </div>
+  </div>
+  <!-- Tableau des événements (rempli par js/events.js) -->
+  <article class="panel">
+    <div class="table-scroll">
+      <table class="data-table events-table">
+        <thead id="eventHead"></thead>
+        <tbody id="eventRows">
+          <tr>
+            <td>Loading…</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="eventPager" class="table-pager"></div>
+    <div class="table-footer">
+      Events are recorded in <code>data/events.jsonl</code> · Files can be downloaded in System → Log files.
+    </div>
+  </article>
+</section>
+<!-- ================================================= -->

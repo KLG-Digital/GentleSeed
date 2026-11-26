@@ -1,0 +1,560 @@
+/* Harmonisation finale : tout suit le thème choisi, aucune couleur codée en dur. Chargé en dernier, donc prioritaire. */
+
+
+/* ======================== HARMONISATION DES MAILLOTS ======================== */
+/* Les anciennes règles .light-theme utilisaient encore des roses fixes. */
+html[data-theme^="maillot-"] .savebar code,
+html[data-theme^="maillot-"] .table-footer code,
+html[data-theme^="maillot-"] .fact code,
+html[data-theme^="maillot-"] .settings-tab code,
+html[data-theme^="maillot-"] .panel code {
+  background: var(--theme-code)!important;
+  color: var(--theme-code-text)!important;
+  border: 1px solid var(--border)!important;
+}
+html[data-theme^="maillot-"] .data-table:not(.events-table) tbody tr:not(.chosen-row):hover,
+html[data-theme^="maillot-"] .data-table:not(.events-table) tbody tr:not(.chosen-row):focus-within,
+html[data-theme^="maillot-"] .tasks-table tbody tr:hover {
+  background: var(--theme-hover)!important;
+}
+html[data-theme^="maillot-"] .events-table .event-row:hover,
+html[data-theme^="maillot-"] .events-table .event-row:focus-within {
+  background: var(--ui-accent-soft)!important;
+  outline-color: var(--ui-accent)!important;
+}
+html[data-theme^="maillot-"] .demo-callout,
+html[data-theme^="maillot-"] .hint-box,
+html[data-theme^="maillot-"] .preview-placeholder {
+  background: var(--theme-subtle);
+  border-color: var(--border);
+  color: var(--theme-subtle-text);
+}
+html[data-theme^="maillot-"] .demo-callout p,
+html[data-theme^="maillot-"] .hint-box p,
+html[data-theme^="maillot-"] .preview-placeholder p {
+  color: var(--muted);
+}
+html[data-theme^="maillot-"] .tag-neutral,
+html[data-theme^="maillot-"] .stat-chip,
+html[data-theme^="maillot-"] .column-move,
+html[data-theme^="maillot-"] .table-pager .button,
+html[data-theme^="maillot-"] .tag-cyan {
+  background: var(--ui-accent-soft);
+  color: var(--ui-accent-soft-ink);
+  border-color: var(--border);
+}
+html[data-theme^="maillot-"] .column-option,
+html[data-theme^="maillot-"] .column-options,
+html[data-theme^="maillot-"] .dialog-header,
+html[data-theme^="maillot-"] .dialog-actions,
+html[data-theme^="maillot-"] .fact {
+  border-color: var(--border);
+}
+html[data-theme^="maillot-"] .gs-dialog .dialog-meta,
+html[data-theme^="maillot-"] .gs-dialog .dialog-content label {
+  color: var(--muted);
+}
+html[data-theme^="maillot-"] .gs-dialog .dialog-close {
+  color: var(--text);
+}
+html[data-theme^="maillot-"] .gs-dialog .column-option:hover {
+  background: var(--theme-hover);
+}
+html[data-theme^="maillot-"] .user-menu-toggle:focus-visible,
+html[data-theme^="maillot-"] .user-menu button:focus-visible {
+  outline-color: var(--ui-accent);
+}
+html[data-theme^="maillot-"] .subtab:hover,
+html[data-theme^="maillot-"] .table-pager .button:hover,
+html[data-theme^="maillot-"] .column-move:hover:not(:disabled) {
+  background: var(--theme-hover);
+  color: var(--text);
+}
+/* Les niveaux WARN/ERROR et la sélection verte gardent leur sémantique. */
+/* ================================================= */
+
+
+/* ======================== CORRECTIFS VISUELS ======================== */
+/* Toute mise en évidence doit suivre le thème choisi, y compris dans les menus. */
+html button:focus-visible,
+html a:focus-visible,
+html input:focus-visible,
+html select:focus-visible,
+html textarea:focus-visible {
+  outline: 2px solid var(--ui-accent) !important;
+  outline-offset: 2px;
+}
+html .setting-row input:not([type=checkbox]):focus,
+html .setting-row select:focus,
+html .settings-form input:not([type=checkbox]):focus,
+html .settings-form select:focus,
+html .search-controls select:focus,
+html .inline-filter input:focus,
+html .login-card input:focus,
+html .setup-panel input:focus,
+html .setup-panel select:focus {
+  border-color: var(--ui-accent) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ui-accent) 20%, transparent) !important;
+}
+html .user-menu button:hover:not(:disabled),
+html .user-menu button:focus-visible,
+html[data-theme^="maillot-"] .user-menu button:hover:not(:disabled),
+html.light-theme .user-menu button:hover:not(:disabled) {
+  color: var(--ui-accent-soft-ink) !important;
+  background: var(--ui-accent-soft) !important;
+}
+html .user-menu button:focus-visible {
+  outline: 2px solid var(--ui-accent) !important;
+}
+/* Fond intermédiaire identique pour les deux apparences, plus lumineux et lisible. */
+html .metrics .service-logo-icon.radarr-service,
+html.light-theme .metrics .service-logo-icon.radarr-service {
+  background: #5C5141 !important;
+  border: 1px solid #98835F !important;
+}
+html .metrics .service-logo-icon.sonarr-service,
+html.light-theme .metrics .service-logo-icon.sonarr-service {
+  background: #3D5868 !important;
+  border: 1px solid #6D96AA !important;
+}
+/* ================================================= */
+
+
+/* ======================== THÈME DYNAMIQUE ======================== */
+/* Icones de recherche : le vieux rose fixe du theme clair n'est plus prioritaire. */
+html .preview-placeholder > span,
+html.light-theme .preview-placeholder > span,
+html[data-theme^="maillot-"] .preview-placeholder > span {
+  color: var(--ui-accent) !important;
+}
+html .nav-item.active .nav-icon,
+html.light-theme .nav-item.active .nav-icon,
+html[data-theme^="maillot-"] .nav-item.active .nav-icon {
+  color: var(--ui-accent) !important;
+}
+html .search-controls .button-primary,
+html .search-controls .button-primary:hover {
+  color: var(--ui-accent-ink) !important;
+}
+/* Le hover des lignes et boutons ne conserve aucune couleur rose codée en dur. */
+/* ================================================= */
+
+
+/* ======================== TABLEAU DE BORD : GRILLE DES INDICATEURS ======================== */
+.metrics {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+@media (max-width:1050px) {
+  .metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width:680px) {
+  .metrics {
+    grid-template-columns: 1fr;
+  }
+}
+/* Lien de fiche du torrent dans les résultats. */
+.release-info-link {
+  color: var(--cyan, #6fc2ff);
+  text-decoration: none;
+  text-underline-offset: 3px;
+  font-weight: 650;
+}
+.release-info-link:hover,
+.release-info-link:focus-visible {
+  text-decoration: underline;
+}
+.external-link-mark {
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: .75;
+}
+/* ================================================= */
+
+
+/* ======================== RECHERCHE COMPACTE SUR UNE LIGNE ======================== */
+@media (min-width:1100px) {
+  html .search-controls {
+    display: grid;
+    grid-template-columns: minmax(180px, 1.05fr) minmax(130px, .64fr) minmax(210px, 2fr) max-content max-content;
+    gap: 10px;
+    align-items: end;
+  }
+  html .search-controls:has(#searchScopeWrap[hidden]) {
+    grid-template-columns: minmax(195px, 1fr) minmax(240px, 2.6fr) max-content max-content;
+  }
+  html .search-controls label {
+    min-width: 0;
+  }
+  html .search-controls select {
+    min-width: 0;
+    text-overflow: ellipsis;
+  }
+  html .search-controls #load,
+  html .search-controls #preview {
+    white-space: nowrap;
+    width: auto;
+    min-width: 0;
+    min-height: 39px;
+    padding: 8px 12px;
+    margin: 0;
+  }
+  html .search-controls #preview {
+    padding-inline: 15px;
+  }
+}
+@media (min-width:761px) and (max-width:1099px) {
+  html .search-controls {
+    grid-template-columns: minmax(180px, 1fr) minmax(180px, 1fr);
+    gap: 11px;
+  }
+  html .search-controls .button {
+    width: auto;
+  }
+}
+/* ================================================= */
+
+
+/* ======================== LECTEUR DE JOURNAUX ======================== */
+.gs-file-dialog {
+  width: min(1040px, calc(100vw - 28px));
+}
+/* La fenêtre tient dans l'écran : en-tête et boutons fixes, seul le contenu du journal défile (une seule barre) */
+.gs-file-dialog[open] {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  max-height: min(92vh, 900px);
+}
+.gs-file-dialog .dialog-header,
+.gs-file-dialog .dialog-actions {
+  flex: none;
+}
+.gs-file-dialog .dialog-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+.gs-file-dialog .file-tools {
+  flex: none;
+}
+.gs-file-dialog .dialog-header small {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+}
+.gs-file-dialog .file-message {
+  font: 12px/1.6 ui-monospace, Consolas, monospace;
+  white-space: pre-wrap;
+  flex: 1;
+  min-height: 120px;
+  max-height: none;
+  overflow: auto;
+}
+.file-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+.file-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+.file-actions .button {
+  padding: 7px 12px;
+  font-size: 12px;
+}
+.light-theme .gs-file-dialog .file-message {
+  background: #f8f5f9;
+}
+/* ================================================= */
+
+
+/* ======================== ÉTATS DE RECHERCHE ======================== */
+.search-feedback {
+  padding: 1.2rem 1.35rem;
+  margin-top: 0.75rem;
+  display: grid;
+  gap: 0.65rem;
+}
+.search-feedback p {
+  margin: 0;
+  line-height: 1.5;
+  color: var(--muted, #a7adbd);
+}
+.search-feedback small {
+  color: var(--muted, #a7adbd);
+}
+.search-feedback .button {
+  justify-self: start;
+}
+.search-feedback-loading {
+  border-left: 3px solid var(--accent, #e477c3);
+}
+.search-feedback-error {
+  border-left: 3px solid #ec7181;
+}
+.search-feedback-empty {
+  line-height: 1.55;
+}
+/* Bouton « Copier » : confirmation visuelle verte après copie (prioritaire sur les thèmes). */
+.button.button-subtle.copied {
+  background: #204c3d;
+  border-color: #348370;
+  color: #8be0b2;
+}
+/* ================================================= */
+
+
+/* ======================== ICÔNES SVG (aucun émoji) ======================== */
+.icon {
+  width: 1.1em;
+  height: 1.1em;
+  flex: none;
+  vertical-align: -.2em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.nav-icon {
+  display: inline-grid;
+  place-items: center;
+}
+.nav-icon .icon {
+  width: 1.05em;
+  height: 1.05em;
+  vertical-align: middle;
+}
+.metric-icon .icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+}
+.menu-toggle {
+  place-items: center;
+}
+@media (max-width:660px) {
+  .menu-toggle {
+    display: inline-grid;
+  }
+}
+.menu-toggle .icon {
+  width: 1.2em;
+  height: 1.2em;
+}
+.column-move {
+  display: inline-grid;
+  place-items: center;
+}
+.column-move .icon {
+  width: 1.1em;
+  height: 1.1em;
+  vertical-align: middle;
+}
+.external-link-mark {
+  margin-left: .25em;
+}
+.external-link-mark .icon {
+  width: 1em;
+  height: 1em;
+}
+/* ---- Page Activité ---- */
+.activity-list {
+  display: grid;
+  gap: 10px;
+}
+.activity-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+}
+.activity-item strong {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  overflow-wrap: anywhere;
+}
+.activity-new {
+  color: var(--green);
+  font-weight: 700;
+}
+#activitySummary {
+  margin: 14px 0 0;
+}
+/* ---- Couleurs de l'aperçu des journaux ---- */
+#fileDetailsContent .log-error {
+  color: #ff7a85;
+}
+#fileDetailsContent .log-warn {
+  color: #f5a742;
+}
+#fileDetailsContent .log-lifecycle {
+  color: #6db8ff;
+  font-weight: 700;
+}
+#fileDetailsContent .log-ok {
+  color: #6fd39a;
+}
+.light-theme #fileDetailsContent .log-error {
+  color: #b3202e;
+}
+.light-theme #fileDetailsContent .log-warn {
+  color: #9a5700;
+}
+.light-theme #fileDetailsContent .log-lifecycle {
+  color: #0b57a4;
+}
+.light-theme #fileDetailsContent .log-ok {
+  color: #1b7a43;
+}
+/* ---- Système → État ---- */
+.overview-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0;
+  overflow-wrap: anywhere;
+}
+.overview-good {
+  color: var(--green);
+}
+.overview-warn {
+  color: #f5a742;
+}
+.overview-bad {
+  color: #ff7a85;
+}
+.light-theme .overview-warn {
+  color: #9a5700;
+}
+.light-theme .overview-bad {
+  color: #b3202e;
+}
+.light-theme .overview-good {
+  color: #1b7a43;
+}
+#overviewHealth strong {
+  display: block;
+  margin: 14px 0 4px;
+}
+#overviewHealth strong:first-child {
+  margin-top: 0;
+}
+/* ---- Sauvegardes ---- */
+.backup-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.task-actions .button+.button {
+  margin-left: 6px;
+}
+/* ---- Mises à jour ---- */
+.update-banner {
+  border: 1px solid var(--accent-main, var(--cyan));
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+}
+.update-banner code {
+  display: block;
+  margin-top: 6px;
+  overflow-wrap: anywhere;
+}
+.release-notes {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 12px;
+  margin: 8px 0 0;
+}
+#updateRepo {
+  min-width: 220px;
+}
+/* ================================================= */
+
+
+/* ======================== JOURNAUX SUR TÉLÉPHONE ======================== */
+/* Sans cela, iOS agrandit le texte des longues cellules : on le fige. */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+/* Sur téléphone, le tableau défile à l'horizontale et le message garde une largeur confortable */
+@media (max-width:660px) {
+  .events-table td {
+    white-space: nowrap;
+  }
+  .events-table td.event-message {
+    white-space: normal;
+    min-width: 240px;
+    max-width: none;
+    overflow: visible;
+    overflow-wrap: anywhere;
+  }
+  /* Ligne de séparation (démarrage/arrêt) : une seule ligne centrée sur le mot, sans élargir sa colonne ni la page */
+  .log-separator {
+    display: flex;
+    justify-content: center;
+    width: 0;
+    min-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+/* ================================================= */
+
+
+/* ======================== FENÊTRE DE CONFIRMATION ======================== */
+.gs-confirm {
+  width: min(560px, calc(100vw - 32px));
+}
+/* Libellés longs (dans certaines langues) : les boutons passent à la ligne au lieu de dépasser de la fenêtre */
+.gs-confirm .dialog-actions {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.gs-confirm .dialog-actions .button {
+  max-width: 100%;
+  white-space: normal;
+  text-align: center;
+}
+.gs-confirm .dialog-content p.confirm-message {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre-line;
+}
+.gs-confirm .dialog-content {
+  padding: 24px;
+}
+/* Action destructive ou irréversible : rouge, comme les autres applications *arr */
+.button.button-danger {
+  background: #E04F5A;
+  border-color: #E04F5A;
+  color: #FFF;
+}
+.button.button-danger:hover {
+  background: #C94049;
+  border-color: #C94049;
+}
+@media (max-width:480px) {
+  .gs-confirm .dialog-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+}
+/* ================================================= */

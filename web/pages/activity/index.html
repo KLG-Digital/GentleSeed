@@ -1,0 +1,110 @@
+<!-- ======================== ACTIVITÉ ======================== -->
+<section class="page" id="page-activity" hidden>
+  <!-- Titre de la page -->
+  <div class="page-heading">
+    <div>
+      <div class="kicker">ACTIVITY</div>
+      <h1>In progress and queue</h1>
+      <p>
+        What GentleSeed is searching for right now, what is waiting its turn and what has just finished. Updates automatically.
+      </p>
+    </div>
+  </div>
+  <!-- Recherche en cours -->
+  <article class="panel" id="activityNow">
+    <div class="panel-title">In progress</div>
+    <div id="activityRunning" class="activity-list">
+      <p class="muted">Loading…</p>
+    </div>
+    <p id="activitySummary" class="muted"></p>
+  </article>
+  <!-- Demandes reçues, en attente d'analyse -->
+  <article class="panel">
+    <div class="panel-title">Requests received, waiting to be analyzed</div>
+    <div id="activityInbox" class="activity-list">
+      <p class="muted">None.</p>
+    </div>
+  </article>
+  <!-- File d'attente : nouveautés d'abord, puis arriéré -->
+  <article class="panel">
+    <div class="panel-title">Queue <span id="activityQueueCount" class="muted"></span></div>
+    <div class="table-scroll">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Priority</th>
+            <th>Service</th>
+            <th>Type</th>
+            <th>Content</th>
+          </tr>
+        </thead>
+        <tbody id="activityQueue">
+          <tr>
+            <td colspan="4">Loading…</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-footer">
+      New items always go before the backlog. A media with no result is set aside, then retried later, as in Radarr and Sonarr.
+    </div>
+  </article>
+  <!-- Téléchargements : releases envoyées à Radarr/Sonarr, suivies dans leur file et leur historique -->
+  <article class="panel">
+    <div class="panel-title">Downloads <button type="button" class="button button-subtle table-options-btn" data-table-options="downloads"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-gear"/></svg> Table options</button></div>
+    <div class="table-scroll">
+      <table class="data-table">
+        <thead>
+          <tr id="downloadsHead"></tr>
+        </thead>
+        <tbody id="activityDownloads">
+          <tr>
+            <td colspan="4">Loading…</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-footer">Follows each release sent by GentleSeed through the Radarr/Sonarr queue and history, for 48 hours.</div>
+  </article>
+  <!-- Téléchargements importés par Radarr/Sonarr (lus dans le suivi : conservés au redémarrage) -->
+  <article class="panel">
+    <div class="panel-title">Recently finished <button type="button" class="button button-subtle table-options-btn" data-table-options="imported"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-gear"/></svg> Table options</button></div>
+    <div class="table-scroll">
+      <table class="data-table">
+        <thead>
+          <tr id="importedHead"></tr>
+        </thead>
+        <tbody id="activityImported">
+          <tr>
+            <td colspan="3">Loading…</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-footer">Imported by Radarr/Sonarr, among the last 50 releases sent. Kept after a restart.</div>
+  </article>
+  <!-- Recherches automatiques terminées (remises à zéro au redémarrage) -->
+  <article class="panel">
+    <div class="panel-title">Recent automatic searches</div>
+    <div class="table-scroll">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Service</th>
+            <th>Content</th>
+            <th>Result</th>
+            <th>Duration</th>
+          </tr>
+        </thead>
+        <tbody id="activityRecent">
+          <tr>
+            <td colspan="5">Loading…</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-footer">This list is reset at restart. The full history is in the logs.</div>
+  </article>
+</section>
+<!-- ================================================= -->

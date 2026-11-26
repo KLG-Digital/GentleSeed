@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="theme-color" content="#1B1E25">
+    <title>{{TITLE}} — GentleSeed</title>
+    <link rel="stylesheet" href="{{BASE}}static/style.css?v={{VERSION}}">
+    <link rel="icon" href="{{BASE}}static/assets/gentleseed-logo.svg?v={{VERSION}}" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="{{BASE}}static/assets/icon-180.png?v={{VERSION}}">
+    <script src="{{BASE}}static/theme.js?v={{VERSION}}"></script>
+    <script>GentleSeedTheme.load();</script>
+    <script src="{{BASE}}static/i18n.js?v={{VERSION}}" defer></script>
+    <!-- Style propre à cette page d'erreur -->
+    <style>
+      .notice-icon {
+        display: block;
+        margin: 4px auto 14px;
+        width: 64px;
+        height: 64px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        opacity: .9;
+      }
+      .notice-title {
+        text-align: center;
+        margin: 0 0 10px;
+        font-size: 1.25rem;
+      }
+      .notice-text {
+        text-align: center;
+        margin: 0 0 8px;
+        line-height: 1.5;
+      }
+      .notice-hint {
+        text-align: center;
+        margin: 0 0 16px;
+      }
+      .notice-actions {
+        display: flex;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body class="login-body">
+    <main class="login-wrap">
+      <div class="login-card">
+        <!-- Titre, message, conseil et icône : remplis par le serveur (backend/routes/access.py) -->
+        <svg class="notice-icon" viewBox="0 0 24 24" aria-hidden="true">{{ICON}}</svg>
+        <h1 class="notice-title">{{TITLE}}</h1>
+        <p class="notice-text">{{MESSAGE}}</p>
+        <p class="notice-hint muted">{{HINT}}</p>
+        <div class="notice-actions"><a class="button button-primary" href="{{BASE}}">Try again</a></div>
+      </div>
+      <p class="login-footer">GentleSeed · KLG Digital</p>
+    </main>
+    <!-- Traduction de la page dans la langue choisie -->
+    <script>window.addEventListener("DOMContentLoaded",()=>window.GentleSeedI18n?.apply(localStorage.getItem("gentleseed.locale")||"auto"));</script>
+  </body>
+</html>

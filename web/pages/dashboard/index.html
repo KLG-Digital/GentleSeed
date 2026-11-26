@@ -1,0 +1,65 @@
+<!-- ======================== TABLEAU DE BORD ======================== -->
+<section class="page is-active" id="page-dashboard">
+  <!-- Titre de la page et accès rapide à la recherche -->
+  <div class="page-heading">
+    <div>
+      <div class="kicker">OVERVIEW</div>
+      <h1>Dashboard</h1>
+      <p>Status of the services and the latest selections proposed by GentleSeed.</p>
+    </div>
+    <button class="button button-primary" type="button" id="quickPreview"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-search"/></svg> Compare releases</button>
+  </div>
+  <!-- Indicateurs : connexion Radarr, connexion Sonarr et état du moteur (remplis par js/engine.js) -->
+  <div class="metrics">
+    <!-- Radarr -->
+    <article class="metric">
+      <div class="metric-icon radarr-service service-logo-icon">
+        <img src="static/assets/radarr.svg" alt="Official Radarr logo" class="service-logo" data-service-logo="radarr">
+        <span class="service-logo-fallback" aria-hidden="true" hidden>R</span>
+      </div>
+      <div>
+        <div class="metric-label">Radarr</div>
+        <strong id="radarr">—</strong><small>Service connection</small>
+      </div>
+    </article>
+    <!-- Sonarr -->
+    <article class="metric">
+      <div class="metric-icon sonarr-service service-logo-icon">
+        <img src="static/assets/sonarr.svg" alt="Official Sonarr logo" class="service-logo" data-service-logo="sonarr">
+        <span class="service-logo-fallback" aria-hidden="true" hidden>S</span>
+      </div>
+      <div>
+        <div class="metric-label">Sonarr</div>
+        <strong id="sonarr">—</strong><small>Service connection</small>
+      </div>
+    </article>
+    <!-- Moteur automatique -->
+    <article class="metric">
+      <div class="metric-icon engine" aria-hidden="true">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-gear"/></svg>
+      </div>
+      <div>
+        <div class="metric-label">Engine status</div>
+        <strong class="smaller" id="engineStatus">—</strong><small id="engineDetail">Check pending</small>
+        <small id="engineLastScan"></small>
+      </div>
+    </article>
+  </div>
+  <!-- Activité récente : 4 dernières lignes du journal (remplies par js/logs.js) -->
+  <div class="dashboard-activity">
+    <article class="panel">
+      <div class="panel-title">
+        <h2>Recent activity</h2>
+        <button class="text-button" type="button" data-go="logs">All logs →</button>
+      </div>
+      <div id="recentLogs" class="recent-logs">
+        <div class="empty">Loading activity…</div>
+      </div>
+      <div class="panel-bottom">
+        <span class="live"><i></i> Updated every 4 s</span>
+        <button class="button button-subtle" type="button" id="goDemo" hidden>View the demo</button>
+      </div>
+    </article>
+  </div>
+</section>
+<!-- ================================================= -->

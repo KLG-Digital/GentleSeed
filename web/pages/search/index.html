@@ -1,0 +1,53 @@
+<!-- ======================== RECHERCHE ======================== -->
+<section class="page" id="page-search" hidden>
+  <!-- Titre de la page -->
+  <div class="page-heading">
+    <div>
+      <div class="kicker">ANALYSIS</div>
+      <h1>Searches</h1>
+      <p>
+        Compare the releases accepted by Radarr/Sonarr by seeders and preferred codec. The choice is sent to Radarr/Sonarr after confirmation.
+      </p>
+    </div>
+    <span class="tag tag-green">CONTROLLED SELECTION</span>
+  </div>
+  <!-- Formulaire de recherche : application, type, média, boutons -->
+  <article class="panel">
+    <div class="panel-title">
+      <h2>New comparison</h2>
+      <span class="muted">Real results or demo data</span>
+    </div>
+    <div class="search-controls">
+      <label>Application<select id="service">
+        <option value="radarr">Radarr · Movies</option>
+        <option value="sonarr">Sonarr · Episodes / Seasons</option>
+      </select></label>
+      <label id="searchScopeWrap" hidden>Search type<select id="searchScope">
+        <option value="episode">Episode</option>
+        <option value="season">Full season</option>
+      </select></label>
+      <label id="searchMediaLabel">Missing media<select id="media">
+        <option value="">Load media…</option>
+      </select></label>
+      <button id="load" type="button" class="button button-subtle"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-refresh"/></svg> Refresh</button>
+      <button id="preview" type="button" class="button button-primary"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-search"/></svg> Search releases</button>
+    </div>
+    <!-- Invitation à la démonstration (visible seulement si ni Radarr ni Sonarr ne sont configurés) -->
+    <div class="demo-callout" id="demoCallout" hidden>
+      <div>
+        <strong>Haven't connected Radarr or Sonarr yet?</strong>
+        <p>Instantly test the ranking with four fictitious releases: 69, 4, 1 and 250 seeders.</p>
+      </div>
+      <button class="button button-outline" type="button" id="demo"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-play"/></svg> Demo</button>
+    </div>
+  </article>
+  <!-- Résultats de la recherche (remplis par js/search.js) -->
+  <div id="previewResult">
+    <div class="preview-placeholder">
+      <span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-search"/></svg></span>
+      <strong>No search performed</strong>
+      <p id="emptySearchHelp">Select a media or start the demo to see the comparison table.</p>
+    </div>
+  </div>
+</section>
+<!-- ================================================= -->

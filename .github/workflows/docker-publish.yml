@@ -1,0 +1,105 @@
+name: Build and Push Docker Image
+
+# - push on main        -> "latest" image on Docker Hub
+# - tag vX.Y.Z          -> tag check, X.Y.Z and X.Y images on Docker Hub, then a GitHub release (shown in GentleSeed's "Updates" tab)
+# To publish a version: change backend/version.py, add "# vX.Y.Z" at the top of CHANGELOG.md,
+# push on main, then create the tag:  git tag vX.Y.Z && git push origin vX.Y.Z
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Tag matches the code version
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          VERSION="$(python -c 'from backend.version import VERSION; print(VERSION)')"
+          if [ "v$VERSION" != "$GITHUB_REF_NAME" ]; then
+            echo "Tag $GITHUB_REF_NAME does not match backend/version.py (v$VERSION)."
+            exit 1
+          fi
+
+  build-and-push:
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Docker tags
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: starkev/gentleseed
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push the image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Sync the README to Docker Hub
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: starkev/gentleseed
+          readme-filepath: ./README.md
+          enable-url-completion: true
+          short-description: Release selector for Radarr and Sonarr (picks the best release, downloads nothing itself)
+
+  release:
+    # Only for a vX.Y.Z tag: creates the GitHub release read by the "Updates" tab of GentleSeed.
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Release notes from the CHANGELOG
+        run: |
+          awk -v tag="# $GITHUB_REF_NAME" 'index($0, tag " ") == 1 { found = 1; next } /^# v/ { if (found) exit } found' CHANGELOG.md > notes.md
+          if [ ! -s notes.md ]; then echo "Version $GITHUB_REF_NAME" > notes.md; fi
+
+      - name: GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: notes.md
+          name: ${{ github.ref_name }}

@@ -1,0 +1,576 @@
+/* Thèmes « maillots » (rose, Paris, Bleu, Dark) et apparence de la première configuration et de la connexion. */
+
+
+/* ======================== THÈMES MAILLOTS ======================== */
+/*
+ * Palettes inspirées des quatre maillots montrés, non issues de codes officiels.
+ * Les valeurs "maillot-*" sont conservées pour ne pas casser settings.json.
+ * Rose  = maillot-rose  (rose pastel et anthracite)
+ * Paris = maillot-paris (blanc et violet lavande)
+ * Bleu  = maillot-worlds (ivoire, bleu et petite touche dorée)
+ * Dark  = maillot-noir  (noir, anthracite et bleu nuit)
+ * Violet = maillot-violet (violet profond, bandes blanches liserées de magenta)
+ */
+html[data-theme="maillot-rose"] {
+  color-scheme: light;
+  --bg: #F8EFF5;
+  --panel: #FFFFFF;
+  --panel2: #FCF4F8;
+  --sidebar: #F3E4EE;
+  --border: #E3C6D8;
+  --text: #2E2A32;
+  --muted: #6F5C6B;
+  --top: #E8B8D6;
+  --cyan: #B85C94;
+  --accent-main: #B85C94;
+  --accent-hover: #A74B83;
+  --theme-top-text: #2E2A32;
+  --theme-top-chip: #F7D8E9;
+  --theme-nav: #3F3140;
+  --theme-selected: #E8C6DB;
+  --theme-hover: #EFD8E6;
+  --theme-input: #FFFFFF;
+  --theme-muted-text: #6F5C6B;
+  --theme-subtle: #F5EBF1;
+  --theme-subtle-text: #453749;
+  --theme-table: #F9EEF5;
+  --theme-code: #F5E7F0;
+  --theme-code-text: #5D3651;
+  --theme-button-text: #FFFFFF;
+  --theme-focus: #B85C94;
+}
+html[data-theme="maillot-paris"] {
+  color-scheme: light;
+  --bg: #F4F6FB;
+  --panel: #FFFFFF;
+  --panel2: #F0F0FA;
+  --sidebar: #EBECF7;
+  --border: #D5D6E9;
+  --text: #292842;
+  --muted: #61627B;
+  --top: #6F63B6;
+  --cyan: #6F63B6;
+  --accent-main: #6F63B6;
+  --accent-hover: #5B4F9B;
+  --theme-top-text: #FFFFFF;
+  --theme-top-chip: #4D418B;
+  --theme-nav: #393653;
+  --theme-selected: #DCD9F4;
+  --theme-hover: #E4E2F6;
+  --theme-input: #FFFFFF;
+  --theme-muted-text: #61627B;
+  --theme-subtle: #F0EFFA;
+  --theme-subtle-text: #393653;
+  --theme-table: #EDEBFA;
+  --theme-code: #EDEBFA;
+  --theme-code-text: #4B3F8F;
+  --theme-button-text: #FFFFFF;
+  --theme-focus: #6F63B6;
+}
+html[data-theme="maillot-worlds"] {
+  color-scheme: light;
+  --bg: #F7F4EC;
+  --panel: #FFFEFA;
+  --panel2: #F2F3F7;
+  --sidebar: #EEF0F5;
+  --border: #D5D9E1;
+  --text: #233A56;
+  --muted: #657487;
+  --top: #1E5FBF;
+  --cyan: #3478D6;
+  --accent-main: #3478D6;
+  --accent-hover: #1E5FBF;
+  --theme-top-text: #FFFFFF;
+  --theme-top-chip: #144A99;
+  --theme-nav: #2F4967;
+  --theme-selected: #DCE9FA;
+  --theme-hover: #E3EAF7;
+  --theme-input: #FFFEFA;
+  --theme-muted-text: #657487;
+  --theme-subtle: #E7EDF7;
+  --theme-subtle-text: #2F4967;
+  --theme-table: #E9EFF8;
+  --theme-code: #E6EDF7;
+  --theme-code-text: #1E5FBF;
+  --theme-button-text: #FFFFFF;
+  --theme-focus: #3478D6;
+  --theme-detail: #C9A64A;
+}
+html[data-theme="maillot-noir"] {
+  color-scheme: dark;
+  --bg: #111319;
+  --panel: #1B1F28;
+  --panel2: #273245;
+  --sidebar: #0D1118;
+  --border: #3B475B;
+  --text: #F1F3F7;
+  --muted: #ABB7C7;
+  --top: #273245;
+  --cyan: #9FBCEB;
+  --accent-main: #91B4E3;
+  --accent-hover: #B3CDEE;
+  --theme-top-text: #F1F3F7;
+  --theme-top-chip: #1B2536;
+  --theme-nav: #C2CBD8;
+  --theme-selected: #273245;
+  --theme-hover: #303E53;
+  --theme-input: #171D27;
+  --theme-muted-text: #ABB7C7;
+  --theme-subtle: #273245;
+  --theme-subtle-text: #F1F3F7;
+  --theme-table: #273245;
+  --theme-code: #273245;
+  --theme-code-text: #D8E5F7;
+  --theme-button-text: #111319;
+  --theme-focus: #91B4E3;
+}
+html[data-theme="maillot-violet"] {
+  color-scheme: dark;
+  --bg: #150C26;
+  --panel: #20143A;
+  --panel2: #2B1B4D;
+  --sidebar: #180D2C;
+  --border: #44306E;
+  --text: #F6F2FC;
+  --muted: #BFB0DA;
+  --top: #46207C;
+  --cyan: #E56AC0;
+  --accent-main: #E56AC0;
+  --accent-hover: #F08AD0;
+  --theme-top-text: #FFFFFF;
+  --theme-top-chip: #321459;
+  --theme-nav: #D5C9EC;
+  --theme-selected: #3B2267;
+  --theme-hover: #33215A;
+  --theme-input: #190F2E;
+  --theme-muted-text: #BFB0DA;
+  --theme-subtle: #2B1B4D;
+  --theme-subtle-text: #F6F2FC;
+  --theme-table: #2B1B4D;
+  --theme-code: #2B1B4D;
+  --theme-code-text: #E8DBFF;
+  --theme-button-text: #1E0B33;
+  --theme-focus: #E56AC0;
+}
+/* --------------------- REGLES PARTAGEES --------------------- */
+/* Les sélecteurs ci-dessous surchargent aussi les anciennes couleurs du thème clair. */
+html[data-theme^="maillot-"] body,
+html[data-theme^="maillot-"] .workspace {
+  background: var(--bg);
+  color: var(--text);
+}
+html[data-theme^="maillot-"] .sidebar {
+  background: var(--sidebar);
+  border-right: 1px solid var(--border);
+}
+html[data-theme^="maillot-"] .topbar {
+  background: var(--top);
+  color: var(--theme-top-text);
+}
+/* La barre de défilement prolonge la barre du haut */
+html[data-theme^="maillot-"] {
+  --scroll-rail: var(--top);
+  --scroll-ink: var(--theme-top-text);
+}
+html[data-theme^="maillot-"] .topbar .brand-name,
+html[data-theme^="maillot-"] .topbar .top-actions {
+  color: var(--theme-top-text);
+}
+html[data-theme^="maillot-"] .top-chip {
+  background: var(--theme-top-chip);
+  color: var(--theme-top-text);
+}
+html[data-theme^="maillot-"] .beta-label {
+  color: var(--theme-top-text);
+  border-color: currentColor;
+}
+html[data-theme^="maillot-"] .nav-item,
+html[data-theme^="maillot-"] .nav-icon,
+html[data-theme^="maillot-"] .nav-section-title {
+  color: var(--theme-nav)!important;
+}
+html[data-theme^="maillot-"] .nav-item.active {
+  color: var(--text)!important;
+  background: var(--theme-selected);
+  box-shadow: inset 3px 0 0 var(--accent-main);
+}
+html[data-theme^="maillot-"] .nav-item:hover {
+  background: var(--theme-hover);
+  color: var(--text)!important;
+}
+html[data-theme^="maillot-"] h1,
+html[data-theme^="maillot-"] h2,
+html[data-theme^="maillot-"] h3,
+html[data-theme^="maillot-"] strong,
+html[data-theme^="maillot-"] .settings-heading,
+html[data-theme^="maillot-"] .setting-row>div:first-child>strong {
+  color: var(--text);
+}
+html[data-theme^="maillot-"] p,
+html[data-theme^="maillot-"] .muted,
+html[data-theme^="maillot-"] .page-heading p,
+html[data-theme^="maillot-"] .settings-heading p,
+html[data-theme^="maillot-"] .setting-row p,
+html[data-theme^="maillot-"] .metric-label,
+html[data-theme^="maillot-"] .metric small {
+  color: var(--muted);
+}
+html[data-theme^="maillot-"] .kicker,
+html[data-theme^="maillot-"] .text-button,
+html[data-theme^="maillot-"] .download-link {
+  color: var(--accent-main);
+}
+html[data-theme^="maillot-"] .panel,
+html[data-theme^="maillot-"] .metric,
+html[data-theme^="maillot-"] .metrics .metric,
+html[data-theme^="maillot-"] .dashboard-activity>.panel {
+  background: var(--panel);
+  border-color: var(--border);
+  box-shadow: 0 4px 18px #0000000A;
+}
+html[data-theme^="maillot-"] .panel-title,
+html[data-theme^="maillot-"] .setting-row,
+html[data-theme^="maillot-"] .data-table td {
+  border-color: var(--border);
+}
+html[data-theme^="maillot-"] .sub-toolbar,
+html[data-theme^="maillot-"] .savebar {
+  background: var(--panel);
+  border-color: var(--border);
+}
+html[data-theme^="maillot-"] .subtab {
+  background: var(--panel);
+  color: var(--theme-nav);
+  border: 1px solid var(--border);
+}
+html[data-theme^="maillot-"] .subtab:hover {
+  background: var(--theme-hover);
+  color: var(--text);
+}
+html[data-theme^="maillot-"] .subtab.active {
+  background: var(--theme-selected);
+  color: var(--text);
+  border-color: var(--accent-main);
+  box-shadow: none;
+}
+html[data-theme^="maillot-"] .button-primary {
+  background: var(--accent-main);
+  border-color: var(--accent-main);
+  color: var(--theme-button-text);
+}
+html[data-theme^="maillot-"] .button-primary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  color: var(--theme-button-text);
+}
+html[data-theme^="maillot-"] .button-subtle {
+  background: var(--theme-subtle);
+  border: 1px solid var(--border);
+  color: var(--theme-subtle-text);
+}
+html[data-theme^="maillot-"] .button-subtle:hover {
+  background: var(--theme-hover);
+  color: var(--text);
+}
+html[data-theme^="maillot-"] .button-outline {
+  background: var(--theme-subtle);
+  border-color: var(--border);
+  color: var(--accent-main);
+}
+html[data-theme^="maillot-"] .subtab:focus-visible,
+html[data-theme^="maillot-"] button:focus-visible,
+html[data-theme^="maillot-"] input:focus-visible,
+html[data-theme^="maillot-"] select:focus-visible {
+  outline-color: var(--theme-focus);
+}
+html[data-theme^="maillot-"] input[type="checkbox"] {
+  accent-color: var(--accent-main);
+}
+html[data-theme^="maillot-"] .setting-row input:not([type="checkbox"]),
+html[data-theme^="maillot-"] .setting-row select,
+html[data-theme^="maillot-"] .settings-form input:not([type="checkbox"]),
+html[data-theme^="maillot-"] .settings-form select,
+html[data-theme^="maillot-"] .search-controls select,
+html[data-theme^="maillot-"] .inline-filter select {
+  background: var(--theme-input);
+  color: var(--text);
+  border-color: var(--border);
+}
+html[data-theme^="maillot-"] .data-table th {
+  background: var(--theme-table);
+  color: var(--theme-muted-text);
+}
+html[data-theme^="maillot-"] .data-table td,
+html[data-theme^="maillot-"] .data-table .number {
+  color: var(--text);
+}
+html[data-theme^="maillot-"] code {
+  background: var(--theme-code);
+  color: var(--theme-code-text);
+  border: 1px solid var(--border);
+}
+html[data-theme^="maillot-"] .sub-toolbar .save-state {
+  color: var(--muted);
+}
+html[data-theme^="maillot-"] .user-menu,
+html[data-theme^="maillot-"] .gs-dialog {
+  background: var(--panel);
+  color: var(--text);
+  border-color: var(--border);
+}
+html[data-theme^="maillot-"] .user-menu button {
+  color: var(--text);
+}
+html[data-theme^="maillot-"] .user-menu button:hover {
+  background: var(--theme-hover);
+}
+html[data-theme^="maillot-"] .dialog-message,
+html[data-theme^="maillot-"] .options-field select {
+  background: var(--theme-input);
+  color: var(--text);
+  border-color: var(--border);
+}
+html[data-theme^="maillot-"] .table-pager-inner {
+  color: var(--muted);
+}
+html[data-theme^="maillot-"] .metric strong {
+  color: var(--text);
+}
+/* --------------------- ACCENTS PAR MAILLOT --------------------- */
+html[data-theme="maillot-rose"] .tag-cyan,
+html[data-theme="maillot-paris"] .tag-cyan,
+html[data-theme="maillot-worlds"] .tag-cyan,
+html[data-theme="maillot-violet"] .tag-cyan {
+  background: var(--theme-selected);
+  color: var(--text);
+}
+html[data-theme="maillot-worlds"] .metric-icon.orange {
+  border: 1px solid #C9A64A;
+}
+html[data-theme="maillot-noir"] .panel,
+html[data-theme="maillot-noir"] .metric {
+  box-shadow: 0 4px 18px #00000033;
+}
+html[data-theme="maillot-noir"] .log-badge {
+  background: #273245;
+  color: #DCE9FF;
+}
+html[data-theme="maillot-violet"] .panel,
+html[data-theme="maillot-violet"] .metric {
+  box-shadow: 0 4px 18px #00000040;
+}
+html[data-theme="maillot-violet"] .log-badge {
+  background: #3B2267;
+  color: #F1E8FF;
+}
+/* Liseré de la barre du haut, comme le bord des manches : blanc puis magenta */
+html[data-theme="maillot-violet"] .topbar {
+  box-shadow: inset 0 -3px 0 #C02791, inset 0 -7px 0 #F4F1F8;
+}
+/* ================================================= */
+
+
+/* ======================== LOGO SVG : DIMENSIONS ======================== */
+/* Aucun remplacement du SVG : le fichier de l'utilisateur reste à sa place. */
+.topbar .brand-mark {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+}
+.login-logo .brand-mark.large,
+.setup-hero .brand-mark.large {
+  width: 76px;
+  height: 76px;
+  flex: 0 0 76px;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+}
+.brand-mark .brand-logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 0;
+}
+/* ================================================= */
+
+
+/* ======================== PREMIER LANCEMENT ET CONNEXION ======================== */
+/* Un seul système d'apparence pour l'assistant, le login et l'application. */
+html {
+  --auth-bg: #151922;
+  --auth-card: #202632;
+  --auth-input: #121722;
+  --auth-text: #EEF2F8;
+  --auth-muted: #A6B2C3;
+  --auth-border: #394153;
+  --auth-soft: #29243A;
+  --auth-accent: #E87FCD;
+  --auth-button-text: #14171D;
+}
+html.light-theme[data-theme="standard"] {
+  --auth-bg: #FDFCFD;
+  --auth-card: #FFFFFF;
+  --auth-input: #FFFEFF;
+  --auth-text: #2D2633;
+  --auth-muted: #726678;
+  --auth-border: #E5DEE8;
+  --auth-soft: #F8EEF5;
+  --auth-accent: #C24C92;
+  --auth-button-text: #FFFFFF;
+}
+html[data-theme="maillot-rose"] {
+  --auth-bg: #F8EFF5;
+  --auth-card: #FFFFFF;
+  --auth-input: #FFFFFF;
+  --auth-text: #2E2A32;
+  --auth-muted: #6F5C6B;
+  --auth-border: #E3C6D8;
+  --auth-soft: #F5EBF1;
+  --auth-accent: #B85C94;
+  --auth-button-text: #FFFFFF;
+}
+html[data-theme="maillot-paris"] {
+  --auth-bg: #F4F6FB;
+  --auth-card: #FFFFFF;
+  --auth-input: #FFFFFF;
+  --auth-text: #292842;
+  --auth-muted: #61627B;
+  --auth-border: #D5D6E9;
+  --auth-soft: #F0EFFA;
+  --auth-accent: #6F63B6;
+  --auth-button-text: #FFFFFF;
+}
+html[data-theme="maillot-worlds"] {
+  --auth-bg: #F7F4EC;
+  --auth-card: #FFFEFA;
+  --auth-input: #FFFEFA;
+  --auth-text: #233A56;
+  --auth-muted: #657487;
+  --auth-border: #D5D9E1;
+  --auth-soft: #E7EDF7;
+  --auth-accent: #3478D6;
+  --auth-button-text: #FFFFFF;
+}
+html[data-theme="maillot-noir"] {
+  --auth-bg: #111319;
+  --auth-card: #1B1F28;
+  --auth-input: #171D27;
+  --auth-text: #F1F3F7;
+  --auth-muted: #ABB7C7;
+  --auth-border: #3B475B;
+  --auth-soft: #273245;
+  --auth-accent: #91B4E3;
+  --auth-button-text: #111319;
+}
+html[data-theme="maillot-violet"] {
+  --auth-bg: #150C26;
+  --auth-card: #20143A;
+  --auth-input: #190F2E;
+  --auth-text: #F6F2FC;
+  --auth-muted: #BFB0DA;
+  --auth-border: #44306E;
+  --auth-soft: #2B1B4D;
+  --auth-accent: #E56AC0;
+  --auth-button-text: #1E0B33;
+}
+html .login-body,
+html .setup-body {
+  color: var(--auth-text);
+  background: radial-gradient(circle at 50% -25%, color-mix(in srgb, var(--auth-accent) 16%, transparent) 0%, transparent 48%), var(--auth-bg);
+}
+html .login-card,
+html .setup-panel {
+  background: var(--auth-card);
+  border-color: var(--auth-border);
+  color: var(--auth-text);
+}
+html .login-card label,
+html .setup-panel .setting-row>div:first-child>strong,
+html .setup-panel h2,
+html .setup-hero h1 {
+  color: var(--auth-text);
+}
+html .setup-body p,
+html .login-subtitle,
+html .login-footer,
+html .setup-hero p,
+html .setup-panel p,
+html .setup-panel .setting-row p {
+  color: var(--auth-muted);
+}
+html .login-caption,
+html .setup-hero .kicker {
+  color: var(--auth-accent);
+}
+html .login-card input,
+html .setup-panel input:not([type=checkbox]),
+html .setup-panel select {
+  background: var(--auth-input);
+  border: 1px solid var(--auth-border);
+  color: var(--auth-text);
+  border-radius: 8px;
+}
+html .login-card input:focus,
+html .setup-panel input:focus,
+html .setup-panel select:focus {
+  border-color: var(--auth-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--auth-accent) 18%, transparent);
+}
+html .login-body .button-primary,
+html .setup-body .button-primary {
+  background: var(--auth-accent);
+  color: var(--auth-button-text);
+  border-color: var(--auth-accent);
+}
+html .login-body .button-primary:hover,
+html .setup-body .button-primary:hover {
+  filter: brightness(.94);
+}
+html .setup-panel .setting-row {
+  border-color: var(--auth-border);
+}
+html .setup-panel .panel-title {
+  border-color: var(--auth-border);
+}
+html .setup-body code {
+  background: var(--auth-soft);
+  color: var(--auth-text);
+  border: 1px solid var(--auth-border);
+}
+html .setup-theme-caption {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0 3px;
+  color: var(--auth-muted);
+  font-size: 12px;
+}
+html .setup-theme-swatch {
+  display: inline-block;
+  background: var(--auth-accent);
+  border-radius: 6px;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--auth-border);
+}
+html .setup-second-section {
+  margin-top: 20px;
+}
+html .setup-footer {
+  border-top: 1px solid var(--auth-border);
+  padding-top: 18px;
+}
+@media (max-width:660px) {
+  html .setup-panel {
+    padding: 18px;
+  }
+  html .setup-theme-caption {
+    margin-bottom: 3px;
+  }
+}
+/* ================================================= */

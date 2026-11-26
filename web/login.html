@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="GentleSeed">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="static/manifest.webmanifest?v={{VERSION}}">
+    <meta name="theme-color" content="#1B1E25">
+    <title>Sign in — GentleSeed</title>
+    <link rel="stylesheet" href="static/style.css?v={{VERSION}}">
+    <link rel="icon" href="static/assets/gentleseed-logo.svg?v={{VERSION}}" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="static/assets/icon-180.png?v={{VERSION}}">
+    <script src="static/theme.js?v={{VERSION}}"></script>
+    <!-- Thème enregistré dans le navigateur, appliqué avant l'affichage -->
+    <script>GentleSeedTheme.load();</script>
+    <script src="static/i18n.js?v={{VERSION}}" defer></script>
+  </head>
+  <body class="login-body">
+    <main class="login-wrap">
+      <!-- Carte de connexion -->
+      <div class="login-card">
+        <div class="login-logo">
+          <div class="brand-mark large">
+            <!-- Logo : web/assets/gentleseed-logo.svg -->
+            <img class="brand-logo" src="static/assets/gentleseed-logo.svg?v={{VERSION}}" alt="Logo GentleSeed">
+          </div>
+        </div>
+        <p class="login-caption">SIGN IN TO GENTLESEED</p>
+        <form id="login">
+          <p class="login-subtitle">Sign in with the credentials set during the first launch.</p>
+          <label>Username<input id="username" type="text" placeholder="Username" autocomplete="username" required autofocus></label>
+          <label>Password<input id="password" type="password" autocomplete="current-password" required></label>
+          <button class="button button-primary login-button" type="submit">Sign in</button>
+        </form>
+        <p id="error" class="login-error" role="alert"></p>
+      </div>
+      <p class="login-footer">GentleSeed · KLG Digital</p>
+    </main>
+    <!-- Envoi du formulaire de connexion -->
+    <script>
+      document.getElementById('login').addEventListener('submit', async event => {
+        event.preventDefault();
+        const button = event.target.querySelector('button');
+        const error = document.getElementById('error');
+        button.disabled = true;
+        error.textContent = '';
+        try {
+          const response = await fetch('api/login', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              username: document.getElementById('username').value,
+              password: document.getElementById('password').value
+            })
+          });
+          const result = await response.json();
+          // Installation remise à zéro pendant que cette page restait ouverte
+          if (response.status === 409) {
+            location.replace('setup');
+            return;
+          }
+          if (!response.ok) throw Error(result.detail || 'Unable to sign in');
+          location.replace('./');
+        } catch (problem) {
+          error.textContent = problem.message;
+        } finally {
+          button.disabled = false;
+        }
+      });
+    </script>
+    <!-- Traduction de la page dans la langue choisie -->
+    <script>window.addEventListener("DOMContentLoaded",()=>window.GentleSeedI18n?.apply(localStorage.getItem("gentleseed.locale")||"auto"));</script>
+  </body>
+</html>

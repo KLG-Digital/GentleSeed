@@ -1,0 +1,532 @@
+<!-- ======================== PARAMÈTRES ======================== -->
+<section class="page" id="page-settings" hidden>
+  <!-- Titre de la page -->
+  <div class="page-heading">
+    <div>
+      <div class="kicker">CONFIGURATION</div>
+      <h1>Settings</h1>
+      <p>Customize the connections, the selection rules and the security.</p>
+    </div>
+  </div>
+  <!-- Réglages avancés et état d'enregistrement -->
+  <div class="sub-toolbar">
+    <button id="advancedToggle" class="text-button" type="button"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-gear"/></svg> Show advanced settings</button>
+    <span class="save-state" id="savedState"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-check"/></svg> No change</span>
+  </div>
+  <!-- Onglets (js/security.js : switchTab) -->
+  <nav class="subtabs" aria-label="Settings sections">
+    <button class="subtab active" type="button" data-settings-tab="connections">Connections</button>
+    <button class="subtab" type="button" data-settings-tab="selection">Selection</button>
+    <button class="subtab" type="button" data-settings-tab="general">General</button>
+    <button class="subtab" type="button" data-settings-tab="interface">User interface</button>
+    <button class="subtab" type="button" data-settings-tab="integration">Integration</button>
+    <button class="subtab" type="button" data-settings-tab="security">Security</button>
+  </nav>
+  <!-- Formulaire principal : onglets Connexions, Sélection, Général et Interface, enregistrés ensemble -->
+  <form id="settings" class="settings-form">
+    <!-- Onglet Connexions -->
+    <div class="settings-tab" data-settings-content="connections">
+      <!-- Radarr -->
+      <div class="settings-heading">
+        <h2>Radarr</h2>
+        <p>Connection to the movie manager. The API uses a dedicated key, not the web password.</p>
+      </div>
+      <article class="panel rows-panel">
+        <div class="setting-row">
+          <div>
+            <strong>Server address</strong>
+            <p>Example: http://192.168.1.100:7878. Leave empty if you don't use Radarr.</p>
+          </div>
+          <input name="RADARR_URL" type="url" placeholder="http://server-address:7878">
+        </div>
+        <div class="setting-row">
+          <div>
+            <strong>API key</strong>
+            <p>Radarr → Settings → General → Security. A key that is already saved is never displayed again.</p>
+            <span id="rkey" class="tag tag-neutral">Not configured</span>
+          </div>
+          <input name="RADARR_API_KEY" type="password" autocomplete="new-password" placeholder="No key saved">
+        </div>
+        <div class="setting-row">
+          <div>
+            <strong>Check</strong>
+            <p>Tests the address and key typed above, even if they are not saved yet.</p>
+          </div>
+          <div>
+            <button class="button button-subtle test-connection" data-service="radarr" type="button">Test connection</button
+            ><span id="connection-radarr" class="connection-response"></span>
+          </div>
+        </div>
+      </article>
+      <!-- Sonarr -->
+      <div class="settings-heading">
+        <h2>Sonarr</h2>
+        <p>Connection to the TV series and episodes manager.</p>
+      </div>
+      <article class="panel rows-panel">
+        <div class="setting-row">
+          <div>
+            <strong>Server address</strong>
+            <p>Example: http://192.168.1.100:8989. Leave empty if you don't use Sonarr.</p>
+          </div>
+          <input name="SONARR_URL" type="url" placeholder="http://server-address:8989">
+        </div>
+        <div class="setting-row">
+          <div>
+            <strong>API key</strong>
+            <p>Sonarr → Settings → General → Security.</p>
+            <span id="skey" class="tag tag-neutral">Not configured</span>
+          </div>
+          <input name="SONARR_API_KEY" type="password" autocomplete="new-password" placeholder="No key saved">
+        </div>
+        <div class="setting-row">
+          <div>
+            <strong>Check</strong>
+            <p>Tests the address and key typed above, even if they are not saved yet.</p>
+          </div>
+          <div>
+            <button class="button button-subtle test-connection" data-service="sonarr" type="button">Test connection</button
+            ><span id="connection-sonarr" class="connection-response"></span>
+          </div>
+        </div>
+      </article>
+    </div>
+    <!-- Onglet Sélection : règles de choix des releases -->
+    <div class="settings-tab" data-settings-content="selection" hidden>
+      <!-- Stratégie -->
+      <div class="settings-heading">
+        <h2>Strategy</h2>
+        <p>
+          Radarr and Sonarr decide on eligibility; GentleSeed then ranks by seeders and, if requested, by preferred codec.
+        </p>
+      </div>
+      <article class="panel rows-panel">
+        <div class="setting-row">
+          <div>
+            <strong>Minimum seeders</strong>
+            <p>1 keeps rare torrents. 0 also allows those with no known seeders at zero.</p>
+          </div>
+          <input type="number" name="MIN_SEEDERS" min="0" max="10000" required>
+        </div>
+        <div class="setting-row advanced-option">
+          <div>
+            <strong>Allow unknown seeders</strong>
+            <p>Ranked after the results with known seeders.</p>
+          </div>
+          <input type="checkbox" name="ALLOW_UNKNOWN_SEEDERS">
+        </div>
+        <div class="setting-row">
+          <div>
+            <strong>Preferred video codec</strong>
+            <p>A preference, never a filter. H.264 and H.265 both stay eligible if Radarr/Sonarr accepts them.</p>
+          </div>
+          <select name="PREFERRED_CODEC">
+            <option value="auto">Automatic · no preferred codec</option>
+            <option value="h264">Prefer H.264 / AVC</option>
+            <option value="h265">Prefer H.265 / HEVC</option>
+          </select>
+        </div>
+        <div class="setting-row">
+          <div>
+            <strong>Codec preference strength</strong>
+            <p>
+              Low: tie-breaker. Balanced: favors the codec without sacrificing seeders. Strong: bigger advantage, without excluding the others.
+            </p>
+          </div>
+          <select name="CODEC_PRIORITY">
+            <option value="faible">Low</option>
+            <option value="equilibree">Balanced</option>
+            <option value="forte">High</option>
+          </select>
+        </div>
+        <div class="setting-row">
+          <div>
+            <strong>Same release team across seasons</strong>
+            <p>
+              For series: favors the team (for example T3KASHi) already used for the series, or the one found on several seasons. A preference, never a filter. Low, Balanced and High: the team's release wins unless another one has about 1.4, 3 or 10 times more seeders.
+            </p>
+          </div>
+          <select name="TEAM_PREFERENCE">
+            <option value="off">Off</option>
+            <option value="faible">Low</option>
+            <option value="equilibree">Balanced</option>
+            <option value="forte">High</option>
+          </select>
+        </div>
+        <div class="setting-row">
+          <div>
+            <strong>Only new media</strong>
+            <p>Avoids automatically picking up the media already present at the first start of the service.</p>
+          </div>
+          <input type="checkbox" name="ONLY_NEW">
+        </div>
+        <div class="setting-row advanced-option">
+          <div>
+            <strong>Maximum searches per cycle</strong>
+            <p>Limits calls to the indexers to avoid overloading them.</p>
+          </div>
+          <input type="number" name="MAX_SEARCHES_PER_CYCLE" min="1" max="20" required>
+        </div>
+        <div class="setting-row">
+          <div>
+            <strong>Accept other languages after</strong>
+            <p>
+              Number of searches with no result before GentleSeed also accepts the releases that Radarr/Sonarr refuses only because of their language
+              (a film with no French version, a silent film…). A search is made about every 6 hours. 0 = never: the language rules are always respected.
+            </p>
+          </div>
+          <input type="number" name="LANGUAGE_FALLBACK_AFTER" min="0" max="50" required>
+        </div>
+      </article>
+      <!-- Indexeurs à ignorer : liste lue dans Radarr et Sonarr -->
+      <div class="settings-heading">
+        <h2>Indexers to ignore</h2>
+        <p>GentleSeed never chooses a release from a ticked indexer, in automatic or manual searches.</p>
+      </div>
+      <article class="panel rows-panel">
+        <div class="setting-row">
+          <div>
+            <strong>Indexers</strong>
+            <p>The list comes from Radarr and Sonarr. An indexer present in both has a box for each application.</p>
+          </div>
+          <button class="button button-subtle" type="button" id="indexerLoad">Load the indexer list</button>
+        </div>
+        <div class="table-scroll">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Indexer</th>
+                <th>Radarr</th>
+                <th>Sonarr</th>
+              </tr>
+            </thead>
+            <tbody id="indexerRows">
+              <tr>
+                <td colspan="3">Load the indexer list to choose.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </div>
+    <!-- Onglet Général : fonctionnement, délais et journalisation -->
+    <div class="settings-tab" data-settings-content="general" hidden>
+      <!-- Fonctionnement -->
+      <div class="settings-heading">
+        <h2>Operation</h2>
+        <p>Periodic check and delays.</p>
+      </div>
+      <article class="panel rows-panel">
+        <div class="setting-row">
+          <div>
+            <strong>Automatic monitoring</strong>
+            <p>
+              Watches the new movies and series added after activation. Old episodes are not considered new additions.
+            </p>
+          </div>
+          <input type="checkbox" name="AUTO_ENABLED">
+        </div>
+        <div class="setting-row">
+          <div>
+            <strong>Immediate check</strong>
+            <p>Starts a cycle without waiting for the next interval.</p>
+          </div>
+          <div>
+            <button id="scanNow" type="button" class="button button-subtle"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-refresh"/></svg> Check now</button>
+          </div>
+        </div>
+        <div class="setting-row">
+          <div>
+            <strong>New request detection (seconds)</strong>
+            <p>
+              Very light check (one small request per service). As soon as a new missing media appears, the full check starts without waiting.
+            </p>
+          </div>
+          <input name="PROBE_INTERVAL" type="number" min="5" max="600" required>
+        </div>
+        <div class="setting-row advanced-option">
+          <div>
+            <strong>Delay before analyzing a new media (seconds)</strong>
+            <p>
+              0 = right away (recommended: untick automatic search on add in Radarr/Sonarr/Seerr, see the README). If you cannot, 30 gives Radarr/Sonarr time to start their own search first.
+            </p>
+          </div>
+          <input name="NEW_DEMAND_DELAY" type="number" min="0" max="600" required>
+        </div>
+        <div class="setting-row advanced-option">
+          <div>
+            <strong>Full check (seconds)</strong>
+            <p>Maximum delay between two full checks, even without a new request.</p>
+          </div>
+          <input name="CHECK_INTERVAL" type="number" min="60" max="86400" required>
+        </div>
+        <div class="setting-row advanced-option">
+          <div><strong>Retry (seconds)</strong></div>
+          <input name="RETRY_INTERVAL" type="number" min="600" max="604800" required>
+        </div>
+        <div class="setting-row">
+          <div>
+            <strong>API timeout (seconds)</strong>
+            <p>Increase this delay if Radarr or Sonarr responds slowly.</p>
+          </div>
+          <input name="REQUEST_TIMEOUT" type="number" min="5" max="300" required>
+        </div>
+      </article>
+      <!-- Rappel : désactiver la recherche automatique d'*arr pour éviter un double téléchargement -->
+      <div class="hint-box" role="note">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-alert"/></svg>
+        To let GentleSeed choose a release, disable automatic search on add in Radarr, Sonarr or Seerr. Native RSS syncs can still trigger their own downloads.
+      </div>
+      <!-- Journalisation -->
+      <div class="settings-heading">
+        <h2>Logging</h2>
+        <p>Sets the level of detail of the next events.</p>
+      </div>
+      <article class="panel rows-panel">
+        <div class="setting-row">
+          <div>
+            <strong>Log level</strong>
+            <p>DEBUG mode will show more technical information.</p>
+          </div>
+          <select name="LOG_LEVEL">
+            <option value="INFO">Information</option>
+            <option value="WARN">Warnings</option>
+            <option value="ERROR">Errors</option>
+            <option value="DEBUG">Debug</option>
+          </select>
+        </div>
+      </article>
+    </div>
+    <!-- Onglet Interface : apparence, langue et formats régionaux -->
+    <div class="settings-tab" data-settings-content="interface" hidden>
+      <!-- Apparence -->
+      <div class="settings-heading">
+        <h2>Appearance</h2>
+        <p>Customize the look of the application.</p>
+      </div>
+      <article class="panel rows-panel">
+        <div class="setting-row">
+          <div>
+            <strong>Theme</strong>
+            <p>Auto follows the operating system theme.</p>
+          </div>
+          <select name="UI_THEME">
+            <option value="sombre">Dark</option>
+            <option value="clair">Light</option>
+            <option value="auto">Auto</option>
+            <option value="maillot-rose">Gentle Mates · Pastel pink</option>
+            <option value="maillot-noir">Gentle Mates · Dark</option>
+            <option value="maillot-paris">Gentle Mates · Paris (lavender)</option>
+            <option value="maillot-worlds">Gentle Mates · Blue (ivory and blue)</option>
+            <option value="maillot-violet">Gentle Mates · Violet (Paris 2027)</option>
+          </select>
+        </div>
+      </article>
+      <!-- Langue -->
+      <div class="settings-heading">
+        <h2>Language</h2>
+        <p>Interface language.</p>
+      </div>
+      <article class="panel rows-panel">
+        <div class="setting-row">
+          <div>
+            <strong>Interface language</strong>
+            <p>Choose a language or use the browser's. Indexer data stays unchanged.</p>
+          </div>
+          <select name="UI_LANGUAGE">
+            <option value="auto">Automatic (browser)</option>
+            <option value="fr">Français</option>
+            <option value="en">English</option>
+            <option value="de">Deutsch</option>
+            <option value="es">Español</option>
+            <option value="it">Italiano</option>
+            <option value="pt-PT">Português (Portugal)</option>
+            <option value="pt-BR">Português (Brasil)</option>
+            <option value="nl">Nederlands</option>
+            <option value="pl">Polski</option>
+            <option value="ru">Русский</option>
+            <option value="ja">日本語</option>
+            <option value="ko">한국어</option>
+            <option value="zh-CN">简体中文</option>
+            <option value="uk">Українська</option>
+          </select>
+        </div>
+      </article>
+      <!-- Formats régionaux -->
+      <div class="settings-heading">
+        <h2>Regional formats</h2>
+        <p>Customize the displayed dates and times; technical logs stay timestamped in UTC.</p>
+      </div>
+      <article class="panel rows-panel">
+        <div class="setting-row">
+          <div>
+            <strong>Time zone</strong>
+            <p>
+              Automatic follows your browser's. The other choices use IANA time zones and handle daylight saving time.
+            </p>
+          </div>
+          <select name="UI_TIMEZONE" id="uiTimezone">
+            <option value="auto">Automatic (browser)</option>
+          </select>
+        </div>
+        <div class="setting-row">
+          <div><strong>Time format</strong></div>
+          <select name="UI_HOUR_FORMAT">
+            <option value="auto">Automatic (region)</option>
+            <option value="24">24-hour</option>
+            <option value="12">12-hour (AM/PM)</option>
+          </select>
+        </div>
+        <div class="setting-row">
+          <div><strong>Date format</strong></div>
+          <select name="UI_DATE_FORMAT">
+            <option value="auto">Automatic (region)</option>
+            <option value="ch">DD.MM.YYYY</option>
+            <option value="eu">DD/MM/YYYY</option>
+            <option value="us">MM/DD/YYYY</option>
+            <option value="iso">YYYY-MM-DD</option>
+          </select>
+        </div>
+        <div class="setting-row">
+          <div>
+            <strong>Show seconds</strong>
+            <p>Enabled by default in the logs and the tasks.</p>
+          </div>
+          <input name="UI_SHOW_SECONDS" type="checkbox">
+        </div>
+        <div class="setting-row">
+          <div><strong>Time preview</strong></div>
+          <strong id="regionalPreview" aria-live="polite">—</strong>
+        </div>
+      </article>
+    </div>
+    <!-- Barre d'enregistrement du formulaire principal -->
+    <div class="savebar" id="settingsSavebar">
+      <span class="muted">Configuration saved in <code>data/settings.json</code></span>
+      <button type="submit" class="button button-primary">Save changes</button>
+    </div>
+  </form>
+  <!-- Onglet Intégration (hors du formulaire principal : actions immédiates) -->
+  <div class="settings-tab" data-settings-content="integration" hidden>
+    <div class="settings-heading">
+      <h2>Radarr / Sonarr integration</h2>
+      <p>
+        Like Prowlarr: GentleSeed registers itself in Radarr and Sonarr (a "GentleSeed" notification in Settings → Connect). They then notify it
+        <strong>immediately</strong> of a movie or series being added, without waiting for the next check.
+      </p>
+      <p class="muted">
+        <strong>Important:</strong>
+        so that GentleSeed is the only one choosing the release, untick automatic search on add in Radarr/Sonarr (and "Enable Automatic Search" in Seerr/Overseerr). Otherwise you risk two downloads.
+      </p>
+    </div>
+    <article class="panel rows-panel">
+      <div class="setting-row">
+        <div>
+          <strong>Radarr</strong>
+          <p id="integrationRadarr" aria-live="polite">—</p>
+        </div>
+        <div class="table-tools">
+          <button type="button" class="button button-primary" data-integration="install" data-service="radarr">Install / update</button>
+          <button type="button" class="button button-subtle" data-integration="test" data-service="radarr">Test</button>
+          <button type="button" class="button button-subtle" data-integration="remove" data-service="radarr">Remove</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <div>
+          <strong>Sonarr</strong>
+          <p id="integrationSonarr" aria-live="polite">—</p>
+        </div>
+        <div class="table-tools">
+          <button type="button" class="button button-primary" data-integration="install" data-service="sonarr">Install / update</button>
+          <button type="button" class="button button-subtle" data-integration="test" data-service="sonarr">Test</button>
+          <button type="button" class="button button-subtle" data-integration="remove" data-service="sonarr">Remove</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <div><strong>Last message received</strong></div>
+        <span id="integrationLast" class="muted">—</span>
+      </div>
+      <div class="setting-row">
+        <div>
+          <strong>On uninstall</strong>
+          <p>
+            Removes the "GentleSeed" notification from Radarr and Sonarr when GentleSeed stops, and puts it back at startup: nothing is left in them if you delete GentleSeed. A hard server crash cannot clean up.
+          </p>
+        </div>
+        <label class="inline-filter"><input type="checkbox" id="integrationCleanup"> Remove the integration at shutdown</label>
+      </div>
+      <div class="setting-row">
+        <div>
+          <strong>Webhook</strong>
+          <p>Webhook address and secret token.</p>
+        </div>
+        <div class="table-tools">
+          <button type="button" class="button button-subtle" id="integrationCopy">Copy the webhook address</button>
+          <button type="button" class="button button-subtle" id="integrationToken">Regenerate the token</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <div>
+          <strong>Remove everything now</strong>
+          <p>
+            Removes the notification from Radarr and Sonarr right now (for example before uninstalling GentleSeed).
+          </p>
+        </div>
+        <div class="table-tools">
+          <button type="button" class="button button-subtle" id="integrationRemoveAll">Remove all</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <!-- Onglet Sécurité (formulaire à part) -->
+  <div class="settings-tab" data-settings-content="security" hidden>
+    <div class="settings-heading">
+      <h2>Security</h2>
+      <p>Sets up authentication and access to the interface.</p>
+    </div>
+    <form id="securityForm">
+      <article class="panel rows-panel">
+        <div class="setting-row">
+          <div>
+            <strong>Authentication</strong>
+            <p>
+              "None" mode is only accepted from the local network (like Radarr/Sonarr); through a proxy or the Internet, an account is required.
+            </p>
+          </div>
+          <select name="mode" id="securityMode">
+            <option value="none">None</option>
+            <option value="form">Form (sign-in page)</option>
+          </select>
+        </div>
+        <p class="login-error security-none-hint" id="securityNoneHint" role="alert" hidden>Access through a proxy or the Internet detected: "None" is unavailable, you must use the Form mode.</p>
+        <div class="setting-row" id="securityCurrentRow">
+          <div>
+            <strong>Current password</strong>
+            <p>Required to confirm a security change.</p>
+          </div>
+          <input type="password" name="current_password" autocomplete="current-password" placeholder="Current password">
+        </div>
+        <div class="setting-row security-credential">
+          <div><strong>Username</strong></div>
+          <input name="username" autocomplete="username" placeholder="Username">
+        </div>
+        <div class="setting-row security-credential">
+          <div>
+            <strong>New password</strong>
+            <p>You can choose a single character. A long password is safer.</p>
+          </div>
+          <input type="password" name="password" autocomplete="new-password" placeholder="Leave empty to keep the current one">
+        </div>
+        <div class="setting-row security-credential">
+          <div><strong>Confirm password</strong></div>
+          <input type="password" name="confirm_password" autocomplete="new-password" placeholder="Confirm the password">
+        </div>
+      </article>
+      <div class="savebar">
+        <span class="muted">Passwords are hashed, never stored in clear text.</span>
+        <button class="button button-primary" type="submit">Change security</button>
+      </div>
+    </form>
+  </div>
+</section>
+<!-- ================================================= -->

@@ -1,0 +1,504 @@
+/* Affichage mobile et application web (encoches, zones tactiles), puis corrections de thème et d'états. */
+
+
+/* ======================== INTERFACE MOBILE ET APPLICATION WEB ======================== */
+/* Les pages de connexion suivent les mêmes variables que le thème sélectionné. */
+html {
+  --ui-accent: #E87FCD;
+  --ui-accent-hover: #F4A4DC;
+  --ui-accent-ink: #18131B;
+  --ui-accent-soft: #40253A;
+  --ui-accent-soft-ink: #FFD8EF;
+}
+html.light-theme[data-theme="standard"] {
+  --ui-accent: #C24C92;
+  --ui-accent-hover: #AA3D7D;
+  --ui-accent-ink: #FFFFFF;
+  --ui-accent-soft: #F8E6F1;
+  --ui-accent-soft-ink: #7F2459;
+}
+html[data-theme="maillot-rose"] {
+  --ui-accent: #B85C94;
+  --ui-accent-hover: #A74B83;
+  --ui-accent-ink: #FFFFFF;
+  --ui-accent-soft: #F1D8E8;
+  --ui-accent-soft-ink: #713257;
+}
+html[data-theme="maillot-paris"] {
+  --ui-accent: #6F63B6;
+  --ui-accent-hover: #5B4F9B;
+  --ui-accent-ink: #FFFFFF;
+  --ui-accent-soft: #E6E1FA;
+  --ui-accent-soft-ink: #42348E;
+}
+html[data-theme="maillot-worlds"] {
+  --ui-accent: #3478D6;
+  --ui-accent-hover: #1E5FBF;
+  --ui-accent-ink: #FFFFFF;
+  --ui-accent-soft: #DDE9F8;
+  --ui-accent-soft-ink: #1E5FBF;
+}
+html[data-theme="maillot-violet"] {
+  --ui-accent: #E56AC0;
+  --ui-accent-hover: #F08AD0;
+  --ui-accent-ink: #1E0B33;
+  --ui-accent-soft: #3B2267;
+  --ui-accent-soft-ink: #F3D3EC;
+}
+html[data-theme="maillot-noir"] {
+  --ui-accent: #91B4E3;
+  --ui-accent-hover: #B3CDEE;
+  --ui-accent-ink: #111319;
+  --ui-accent-soft: #273245;
+  --ui-accent-soft-ink: #C5DDFB;
+}
+/* Couleur globale des actions et informations : plus de rose fixe hors du thème rose. */
+html .topbar .top-chip {
+  border-color: color-mix(in srgb, var(--ui-accent) 40%, transparent);
+}
+html .kicker,
+html .text-button,
+html .download-link {
+  color: var(--ui-accent);
+}
+html .button-primary,
+html[data-theme^="maillot-"] .button-primary {
+  background: var(--ui-accent);
+  border-color: var(--ui-accent);
+  color: var(--ui-accent-ink);
+}
+html .button-primary:hover,
+html[data-theme^="maillot-"] .button-primary:hover {
+  background: var(--ui-accent-hover);
+  border-color: var(--ui-accent-hover);
+  color: var(--ui-accent-ink);
+}
+html .subtab.active,
+html[data-theme^="maillot-"] .subtab.active {
+  border-color: var(--ui-accent);
+  color: var(--ui-accent-soft-ink);
+  background: var(--ui-accent-soft);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ui-accent) 14%, transparent);
+}
+html .nav-item.active {
+  box-shadow: inset 3px 0 0 var(--ui-accent);
+}
+html .log-badge.INFO,
+html[data-theme] .tag-cyan,
+html .stat-chip.is-active,
+html .table-pager .button.active {
+  color: var(--ui-accent-soft-ink);
+  background: var(--ui-accent-soft);
+}
+html .log-badge.DEBUG {
+  color: var(--ui-accent-soft-ink);
+  background: var(--ui-accent-soft);
+}
+html .tag-neutral {
+  border: 1px solid var(--border);
+}
+html input[type=checkbox],
+html input[type=radio] {
+  accent-color: var(--ui-accent);
+}
+html button:focus-visible,
+html a:focus-visible,
+html input:focus-visible,
+html select:focus-visible {
+  outline: 2px solid var(--ui-accent);
+  outline-offset: 2px;
+}
+html .rejection,
+html .log-badge.ERROR {
+  /* Les erreurs conservent leur couleur de gravité. */
+}
+/* Carte de connexion : plus grande sur desktop et correctement dimensionnée sur iPhone. */
+html .login-body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: max(22px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(22px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+  overflow-x: hidden;
+}
+html .login-wrap {
+  width: min(100%, 600px);
+  max-width: 600px;
+  margin: auto;
+}
+html .login-card {
+  padding: clamp(30px, 4.2vw, 52px);
+  border-radius: 20px;
+  box-shadow: 0 22px 55px #00000022;
+}
+html .login-logo {
+  margin-bottom: 22px;
+}
+html .login-logo .brand-mark.large {
+  width: 112px;
+  height: 112px;
+  flex: 0 0 112px;
+}
+html .login-caption {
+  font-size: clamp(18px, 2.4vw, 22px);
+  letter-spacing: .8px;
+  margin-bottom: 24px;
+  line-height: 1.3;
+}
+html .login-subtitle {
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+html .login-card label {
+  font-size: 15px;
+  margin-bottom: 22px;
+  font-weight: 600;
+}
+html .login-card input {
+  width: 100%;
+  min-height: 56px;
+  font-size: 16px;
+  padding: 13px 17px;
+  margin-top: 9px;
+  border-radius: 10px;
+}
+html .login-button {
+  min-height: 56px;
+  margin-top: 8px;
+  font-size: 17px;
+  border-radius: 10px;
+}
+html .login-footer {
+  font-size: 13px;
+  margin-top: 20px;
+  text-align: center;
+}
+/* Zone de première configuration : touches et champs utilisables sur mobile. */
+html .setup-body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: max(18px, env(safe-area-inset-top)) max(15px, env(safe-area-inset-right)) max(22px, env(safe-area-inset-bottom)) max(15px, env(safe-area-inset-left));
+}
+html .setup-container {
+  width: min(100%, 880px);
+}
+html .setup-hero .brand-mark.large {
+  width: 92px;
+  height: 92px;
+  flex: 0 0 92px;
+}
+html .setup-panel input:not([type=checkbox]),
+html .setup-panel select {
+  min-height: 48px;
+  font-size: 16px;
+}
+html .setup-panel button {
+  min-height: 48px;
+}
+/* Barre supérieure / menu mobile : respect des encoches et zones tactiles. */
+html .topbar {
+  height: auto;
+  min-height: 60px;
+  padding-top: env(safe-area-inset-top);
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-left: max(12px, env(safe-area-inset-left));
+}
+html .sidebar {
+  top: calc(60px + env(safe-area-inset-top));
+  height: calc(100dvh - 60px - env(safe-area-inset-top));
+}
+html .shell {
+  min-height: calc(100dvh - 60px - env(safe-area-inset-top));
+}
+html .workspace {
+  padding-bottom: max(32px, env(safe-area-inset-bottom));
+}
+html .user-menu-toggle,
+html .menu-toggle {
+  min-width: 44px;
+  min-height: 44px;
+  touch-action: manipulation;
+}
+html .user-menu {
+  max-width: calc(100vw - 24px);
+}
+@media (max-width:760px) {
+  html .setting-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+  html .settings-form input:not([type=checkbox]),
+  html .settings-form select {
+    font-size: 16px;
+    min-height: 46px;
+  }
+  html .subtabs {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+  }
+  html .subtab {
+    flex-shrink: 0;
+    min-height: 44px;
+  }
+  html .search-controls {
+    grid-template-columns: 1fr;
+  }
+  html .search-controls .button {
+    min-height: 44px;
+  }
+  html .metric {
+    min-width: 0;
+  }
+  html .page-heading {
+    flex-wrap: wrap;
+  }
+  html .table-scroll {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  html .dialog {
+    max-width: calc(100vw - 24px);
+    max-height: calc(100dvh - 36px);
+  }
+  html .login-wrap {
+    max-width: 560px;
+  }
+}
+@media (max-width:660px) {
+  html .topbar .brand-name {
+    font-size: 14px;
+  }
+  html .topbar .beta-label {
+    display: none;
+  }
+  html .metrics {
+    grid-template-columns: 1fr;
+  }
+  html .metric {
+    min-height: 94px;
+  }
+  html .workspace {
+    padding: 22px 14px max(26px, env(safe-area-inset-bottom));
+  }
+  html .panel,
+  html .rows-panel {
+    padding: 16px;
+  }
+  html .login-body {
+    padding: 18px 15px max(18px, env(safe-area-inset-bottom));
+  }
+  html .login-wrap {
+    width: 100%;
+    max-width: 500px;
+  }
+  html .login-card {
+    padding: 30px 24px;
+    border-radius: 17px;
+  }
+  html .login-logo .brand-mark.large {
+    width: 96px;
+    height: 96px;
+    flex: 0 0 96px;
+  }
+  html .login-caption {
+    font-size: 19px;
+  }
+  html .login-subtitle {
+    font-size: 14px;
+  }
+  html .login-card input {
+    min-height: 54px;
+  }
+  html .login-button {
+    min-height: 54px;
+  }
+  html .setup-hero {
+    gap: 10px;
+  }
+  html .setup-hero .brand-mark.large {
+    width: 82px;
+    height: 82px;
+    flex: 0 0 82px;
+  }
+  html .setup-panel {
+    padding: 22px 16px;
+  }
+}
+@media (max-width:390px) {
+  html .topbar .brand-name {
+    font-size: 12px;
+  }
+  html .topbar .brand-mark {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+  }
+  html .top-chip {
+    font-size: 10px;
+    padding: 4px 7px;
+  }
+  html .login-card {
+    padding: 25px 18px;
+  }
+  html .login-logo .brand-mark.large {
+    width: 82px;
+    height: 82px;
+    flex: 0 0 82px;
+  }
+}
+/* le titre d'authentification suit lui aussi le maillot, même en clair. */
+html[data-theme^="maillot-"] .login-caption,
+html[data-theme^="maillot-"] .setup-hero .kicker {
+  color: var(--auth-accent);
+}
+/* ================================================= */
+
+
+/* ======================== TABLEAU DE BORD ET MOBILE ======================== */
+/* Le fond des deux pictogrammes de services reste identique sur tous les maillots. */
+html .service-logo-icon.radarr-service {
+  background: #3D3528!important;
+  border: 1px solid #78613D!important;
+}
+html .service-logo-icon.sonarr-service {
+  background: #273E50!important;
+  border: 1px solid #48718A!important;
+}
+html .metric-icon.engine {
+  background: var(--ui-accent-soft);
+  color: var(--ui-accent-soft-ink);
+}
+html #engineStatus[data-state="operational"] {
+  color: #4FA46F;
+}
+html #engineStatus[data-state="degraded"] {
+  color: #DB8A40;
+}
+html #engineStatus[data-state="paused"] {
+  color: var(--muted);
+}
+html #engineStatus[data-state="running"] {
+  color: var(--ui-accent);
+}
+html #engineLastScan {
+  display: block;
+  margin-top: 5px;
+  font-size: 10px;
+  color: var(--muted);
+}
+html .task-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  min-width: 235px;
+}
+html .task-actions .button {
+  min-height: 34px;
+  font-size: 12px;
+  padding: 6px 11px;
+}
+html .task-actions .button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+html .tasks-table td {
+  vertical-align: middle;
+  white-space: nowrap;
+}
+html .inline-filter input[type=search] {
+  width: min(240px, 55vw);
+  min-height: 39px;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 7px 10px;
+}
+html .inline-filter input[type=search]:focus {
+  outline: 2px solid var(--ui-accent);
+}
+html .sidebar-backdrop {
+  display: none;
+}
+@media (max-width:660px) {
+  html .sidebar-backdrop:not([hidden]) {
+    display: block;
+    position: fixed;
+    inset: calc(60px + env(safe-area-inset-top)) 0 0;
+    z-index: 8;
+    background: rgba(6, 9, 17, .54);
+    border: 0;
+    cursor: pointer;
+  }
+  html body.sidebar-open {
+    overflow: hidden;
+    overscroll-behavior: none;
+    touch-action: none;
+  }
+  html body.sidebar-open .sidebar {
+    touch-action: pan-y;
+    overscroll-behavior: contain;
+  }
+  html .sidebar {
+    z-index: 9;
+    overflow-y: auto;
+    box-shadow: 10px 0 35px #0003;
+  }
+  html .task-actions {
+    min-width: 220px;
+  }
+}
+/* ================================================= */
+
+
+/* ======================== THÈMES ET ÉTATS ======================== */
+/* La présence de l'attribut hidden gagne sur les anciennes classes display:flex. */
+html #demoCallout[hidden],
+html #goDemo[hidden] {
+  display: none!important;
+}
+/* Supprime les survols roses codés en dur dans les journaux, tous maillots confondus. */
+html .events-table .event-row:hover,
+html .events-table .event-row:focus-visible,
+html .events-table tbody tr:hover {
+  background: var(--ui-accent-soft)!important;
+  outline: 1px solid var(--ui-accent)!important;
+  outline-offset: -1px;
+}
+html .events-table .event-detail-button {
+  background: var(--ui-accent-soft);
+  color: var(--ui-accent-soft-ink);
+  border: 1px solid color-mix(in srgb, var(--ui-accent) 38%, var(--border));
+}
+html .events-table .event-detail-button:hover {
+  background: color-mix(in srgb, var(--ui-accent) 15%, var(--ui-accent-soft));
+  color: var(--ui-accent-soft-ink);
+}
+html .events-table .event-row:focus-visible {
+  box-shadow: inset 0 0 0 1px var(--ui-accent);
+}
+/* L'avertissement unique suit le thème au lieu de rester rose sur Paris/Bleu. */
+html[data-theme^="maillot-"] .settings-tab .hint-box {
+  background: var(--theme-subtle);
+  border-color: var(--border);
+  color: var(--theme-subtle-text);
+}
+html[data-theme^="maillot-"] .settings-tab .hint-box strong {
+  color: inherit;
+}
+html[data-theme^="maillot-"] .events-table .event-detail-button:focus-visible {
+  outline-color: var(--ui-accent);
+}
+/* Les zones de code des journaux reprennent les couleurs du maillot choisi. */
+html[data-theme^="maillot-"] .table-footer code {
+  color: var(--theme-code-text);
+  background: var(--theme-code);
+  border-color: var(--border);
+}
+/* ================================================= */

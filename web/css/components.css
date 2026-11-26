@@ -1,0 +1,680 @@
+/* Composants : accessibilité, tableaux, thème clair et cartes du tableau de bord. */
+
+
+/* ======================== ACCESSIBILITÉ ET TABLEAUX ======================== */
+:root {
+  --main-pink: #E87FCD;
+  --deep-pink: #A6477C;
+}
+.table-section-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 15px 0;
+}
+.table-section-bar .settings-heading {
+  margin: 0;
+}
+.table-tools {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.result-table-title {
+  font-size: 15px;
+  font-weight: 650;
+  margin: 25px 0 12px;
+}
+.winner-context {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  color: #C8D7BA;
+}
+.table-pager {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 17px;
+}
+.table-pager-inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.table-pager .button {
+  min-width: 37px;
+  padding: 5px 10px;
+}
+.event-row {
+  cursor: pointer;
+  transition: background .13s ease;
+}
+.event-row:hover,
+.event-row:focus-visible {
+  background: #393642!important;
+  outline: 1px solid #AD6D9A;
+}
+.event-message {
+  max-width: 780px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.event-detail-button {
+  padding: 5px 10px;
+  border: 1px solid #5A4D60;
+  border-radius: 6px;
+  background: #382E3B;
+  color: #F5D4E8;
+  cursor: pointer;
+}
+.event-detail-button:hover {
+  background: #543A4C;
+}
+.gs-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  max-height: min(88vh, 840px);
+  overflow: auto;
+  width: min(700px, calc(100vw - 32px));
+  background: #282E37;
+  color: #ECEDF3;
+  --scroll-rail: #282E37;
+  --scroll-ink: #ECEDF3;
+  border: 1px solid #505660;
+  border-radius: 14px;
+  padding: 0;
+  box-shadow: 0 26px 70px #0009;
+}
+.gs-dialog::backdrop {
+  background: #060810b8;
+}
+.dialog-header,
+.dialog-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 18px 24px;
+  border-bottom: 1px solid #424954;
+}
+.dialog-header h2 {
+  font-size: 20px;
+}
+.dialog-close {
+  background: transparent;
+  border: 0;
+  color: #BBC2CD;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+}
+.dialog-content {
+  padding: 24px;
+}
+.dialog-content h3 {
+  font-size: 15px;
+  margin: 21px 0 5px;
+}
+.dialog-content p {
+  font-size: 12px;
+  margin: 4px 0 15px;
+}
+.dialog-content label {
+  display: block;
+  font-size: 13px;
+  font-weight: 650;
+  margin-bottom: 6px;
+}
+.dialog-meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 19px;
+  color: #B5BECC;
+  font-size: 12px;
+}
+.dialog-message {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: #1B2028;
+  color: #EFF0F4;
+  --scroll-rail: #1B2028;
+  --scroll-ink: #EFF0F4;
+  padding: 15px;
+  border: 1px solid #3F4652;
+  border-radius: 9px;
+  margin: 0;
+  line-height: 1.5;
+  max-height: 280px;
+  overflow: auto;
+  font: 13px/1.55 Consolas, monospace;
+}
+.dialog-actions {
+  justify-content: flex-end;
+  border-bottom: 0;
+  border-top: 1px solid #424954;
+}
+.options-field {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 20px;
+  align-items: center;
+}
+.options-field strong {
+  font-size: 13px;
+}
+.options-field select {
+  width: 100%;
+  background: #1B2028;
+  color: #F0F1F5;
+  border: 1px solid #565F6C;
+  border-radius: 8px;
+  padding: 9px 13px;
+}
+.column-options {
+  border: 1px solid #414954;
+  border-radius: 9px;
+  overflow: hidden;
+}
+.column-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 15px;
+  border-bottom: 1px solid #3D4550;
+}
+.column-option:last-child {
+  border-bottom: 0;
+}
+.column-option-label {
+  display: flex!important;
+  align-items: center;
+  gap: 13px;
+  flex: 1;
+  margin: 0!important;
+  font-weight: 500!important;
+  cursor: pointer;
+}
+.column-option-label input {
+  width: 17px;
+  height: 17px;
+  accent-color: #E87FCD;
+}
+.column-move {
+  border: 1px solid #4C5460;
+  background: #303742;
+  border-radius: 5px;
+  color: #EBEDF4;
+  width: 32px;
+  height: 30px;
+  cursor: pointer;
+}
+.column-move:disabled {
+  opacity: .25;
+  cursor: default;
+}
+/* --------------------- MODE CLAIR : CONTRASTES ET LISIBILITE --------------------- */
+html.light-theme {
+  color-scheme: light;
+  --bg: #F7F5F9;
+  --panel: #FFF;
+  --panel2: #FDFBFE;
+  --sidebar: #F0EAF2;
+  --border: #DDD8E2;
+  --text: #2F2936;
+  --muted: #6C6373;
+}
+.light-theme body {
+  background: #F7F5F9;
+  color: #2F2936;
+}
+.light-theme .workspace {
+  color: #2F2936;
+}
+.light-theme .sidebar {
+  background: #F0EAF2;
+}
+.light-theme .nav-item {
+  color: #494151;
+}
+.light-theme .nav-item.active {
+  background: #E9D7E5;
+  color: #402D3D;
+  box-shadow: inset 3px 0 0 #C04D91;
+}
+.light-theme .nav-item:hover {
+  background: #E7DEE9;
+  color: #342B3A;
+}
+.light-theme .nav-icon,
+.light-theme .nav-section-title {
+  color: #74677A;
+}
+.light-theme .topbar {
+  background: linear-gradient(100deg, #8A3565, #AB4D82 56%, #963A70);
+}
+.light-theme .topbar .brand-name,
+.light-theme .topbar .top-actions {
+  color: #fff;
+}
+.light-theme .kicker,
+.light-theme .text-button {
+  color: #AF3979;
+}
+.light-theme h1,
+.light-theme h2,
+.light-theme h3,
+.light-theme strong {
+  color: #302735;
+}
+.light-theme p,
+.light-theme .muted,
+.light-theme .page-heading p,
+.light-theme .settings-heading p {
+  color: #706676;
+}
+.light-theme .panel,
+.light-theme .metric,
+.light-theme .metrics .metric,
+.light-theme .dashboard-activity>.panel {
+  background: #fff;
+  border-color: #E2DAE5;
+  box-shadow: 0 6px 22px #301C3509;
+}
+.light-theme .sub-toolbar {
+  background: #FFF;
+  border: 1px solid #E2DAE5;
+}
+.light-theme .save-state {
+  color: #716578;
+}
+.light-theme .subtab {
+  color: #514459;
+  background: #FFF;
+  border: 1px solid #DCD4DF;
+}
+.light-theme .subtab:hover {
+  background: #F8EEF5;
+  color: #A3417B;
+}
+.light-theme .subtab.active {
+  color: #923267;
+  background: #F6DFEE;
+  border-color: #D186B6;
+  box-shadow: inset 0 0 0 1px #D186B622;
+}
+.light-theme .button-subtle {
+  background: #F8F4F9;
+  border: 1px solid #DCD5E0;
+  color: #3B3440;
+}
+.light-theme .button-subtle:hover {
+  background: #EFE6F0;
+  color: #332C3A;
+}
+.light-theme .button-primary {
+  background: #C55299;
+  border-color: #C55299;
+  color: white;
+}
+.light-theme .button-primary:hover {
+  background: #A53C7C;
+  color: white;
+}
+.light-theme .setting-row {
+  border-color: #EEE8EF;
+}
+.light-theme .setting-row>div:first-child>strong {
+  color: #3E3341;
+}
+.light-theme .setting-row p {
+  color: #746B79;
+}
+.light-theme .setting-row select,
+.light-theme .setting-row input:not([type=checkbox]),
+.light-theme .search-controls select,
+.light-theme .settings-form select,
+.light-theme .settings-form input:not([type=checkbox]),
+.light-theme .inline-filter select {
+  background: #FFF;
+  color: #382E3A;
+  border-color: #D9D0DC;
+}
+.light-theme .sub-toolbar,
+.light-theme .savebar {
+  background: #FFFCFE;
+}
+.light-theme .savebar {
+  border-color: #DAD2DE;
+}
+.light-theme .savebar .muted {
+  color: #716777;
+}
+.light-theme .panel-title {
+  border-color: #E8E1EA;
+}
+.light-theme .metric-label,
+.light-theme .metric small {
+  color: #6E6875;
+}
+.light-theme .metric strong {
+  color: #302A36;
+}
+.light-theme .data-table th {
+  background: #F5F1F7;
+  color: #5F5266;
+}
+.light-theme .data-table td {
+  border-color: #E8E3EB;
+  color: #332F38;
+}
+.light-theme .data-table tbody tr:hover {
+  background: #FBF3F9;
+}
+.light-theme .stat-chip {
+  background: #FFF;
+  border-color: #DED7E1;
+  color: #4B4151;
+}
+.light-theme .tag-neutral {
+  color: #51475B;
+  background: #EEEAF2;
+}
+.light-theme .notice {
+  background: #E1F2EA;
+  border-color: #B4D7C3;
+  color: #21583C;
+}
+.light-theme .notice.error {
+  background: #FAE4E8;
+  border-color: #DEB7C0;
+  color: #913A50;
+}
+.light-theme .log-badge {
+  background: #F2D9EA;
+  color: #8A315F;
+}
+.light-theme .log-badge.WARN {
+  background: #F7EBCF;
+  color: #835A26;
+}
+.light-theme .log-badge.ERROR {
+  background: #F8E0E3;
+  color: #A53E55;
+}
+.light-theme .winner-card {
+  background: #F0F9E8;
+  border-color: #9CB86D;
+}
+.light-theme .winner-card strong,
+.light-theme .winner-card p,
+.light-theme .winner-context {
+  color: #38562F;
+}
+.light-theme .event-row:hover,
+.light-theme .event-row:focus-visible {
+  background: #F8ECF4!important;
+}
+.light-theme .event-detail-button {
+  background: #F6E7F0;
+  color: #7C3561;
+  border-color: #DBB9CD;
+}
+.light-theme .gs-dialog {
+  background: #FFF;
+  color: #342C39;
+  --scroll-rail: #FFF;
+  --scroll-ink: #342C39;
+  border-color: #E6DDE7;
+}
+.light-theme .dialog-header,
+.light-theme .dialog-actions {
+  border-color: #E6DEE8;
+}
+.light-theme .dialog-message {
+  --scroll-rail: #F8F5F9;
+  --scroll-ink: #322B36;
+  background: #F8F5F9;
+  border-color: #E1D8E3;
+  color: #322B36;
+}
+.light-theme .options-field select {
+  background: white;
+  color: #2F2936;
+  border-color: #D8CFDB;
+}
+.light-theme .column-options {
+  border-color: #E6DFE8;
+}
+.light-theme .column-option {
+  border-color: #E8E0E9;
+}
+.light-theme .column-move {
+  background: #F5F1F7;
+  border-color: #DAD3DF;
+  color: #4E4053;
+}
+.light-theme .demo-callout,
+.light-theme .hint-box {
+  background: #F5EDF4;
+  border-color: #E0CCE0;
+  color: #5B4260;
+}
+.light-theme .preview-placeholder {
+  background: #FFF;
+  border-color: #DCD4E0;
+}
+.light-theme .user-menu {
+  background: #FFF;
+  color: #302B35;
+  border-color: #D8CDDA;
+}
+.light-theme .user-menu button {
+  color: #342A3B;
+}
+.light-theme .user-menu button:hover {
+  background: #F6EBF3;
+  color: #8F3168;
+}
+.light-theme .table-pager-inner {
+  color: #65596B;
+}
+@media (max-width:680px) {
+  .table-section-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .table-tools {
+    justify-content: flex-start;
+  }
+  .options-field {
+    grid-template-columns: 1fr;
+  }
+  .dialog-content {
+    padding: 18px;
+  }
+  .dialog-header,
+  .dialog-actions {
+    padding: 16px;
+  }
+}
+/* --------------------- FINITIONS DU THEME CLAIR --------------------- */
+.light-theme .search-controls label,
+.light-theme .settings-form label {
+  color: #5A485F;
+}
+.light-theme .button-outline {
+  background: #F9EAF4;
+  border-color: #DBA6C9;
+  color: #7A2F60;
+}
+.light-theme .button-outline:hover {
+  background: #F0D8E8;
+  color: #6B254F;
+}
+.light-theme .chosen-row,
+.light-theme .data-table tbody tr.chosen-row {
+  background: #E6F3E5;
+}
+.light-theme .data-table tbody tr.chosen-row td {
+  color: #2C4732;
+}
+.light-theme .data-table tbody tr.chosen-row:hover {
+  background: #DAEDD9;
+}
+.light-theme .data-table .rejection {
+  color: #A73650;
+}
+.light-theme .data-table .number {
+  color: #334D6B;
+}
+.light-theme .preview-placeholder span {
+  color: #AB4E84;
+}
+.light-theme .live {
+  color: #467354;
+}
+.light-theme .winner-count {
+  color: #35542D;
+}
+/* ================================================= */
+
+
+/* ======================== CODE LISIBLE EN THÈME CLAIR ======================== */
+.light-theme code,
+html.light-theme code {
+  background: #F2E9F1;
+  color: #61334F;
+  border: 1px solid #DDD0DD;
+  padding: 2px 6px;
+  border-radius: 5px;
+}
+.light-theme .table-footer code,
+.light-theme .savebar code {
+  color: #61334F;
+  background: #F2E9F1;
+  border-color: #DDD0DD;
+}
+/* ================================================= */
+
+
+/* ======================== FOND PLUS CLAIR ET LISIBILITÉ ======================== */
+/* Teinte neutre presque blanche : le rose reste réservé à l'identité. */
+html.light-theme {
+  --bg: #FDFCFD;
+  --panel: #FFFFFF;
+  --panel2: #FFFEFF;
+  --sidebar: #FAF6FA;
+  --border: #E5DEE8;
+}
+.light-theme body,
+.light-theme .workspace {
+  background: var(--bg);
+}
+.light-theme .sidebar {
+  background: var(--sidebar);
+  border-right: 1px solid #EEE7EF;
+}
+.light-theme .panel,
+.light-theme .metric,
+.light-theme .metrics .metric,
+.light-theme .dashboard-activity > .panel {
+  background: #FFFFFF;
+  border-color: #E5DEE8;
+  box-shadow: 0 4px 16px rgba(55, 36, 57, .045);
+}
+.light-theme .sub-toolbar,
+.light-theme .savebar {
+  background: #FFFFFF;
+  border-color: #E5DEE8;
+}
+.light-theme .metric-label,
+.light-theme .metric small {
+  color: #615B66;
+}
+.light-theme .notice {
+  border-color: #BADFCB;
+}
+/* Les mots-clés et chemins de configuration gardent un fond clair. */
+.light-theme code,
+html.light-theme code {
+  background: #F8F2F7;
+  color: #623A58;
+  border-color: #E6DBE4;
+}
+/* ================================================= */
+
+
+/* ======================== CARTES ET ICÔNES DU TABLEAU DE BORD ======================== */
+/* On éclaircit les zones du tableau de bord, PAS le fond global de l'interface. */
+.metrics .metric {
+  background: #2D3441;
+  border-color: #47515F;
+}
+.metrics .service-logo-icon.radarr-service {
+  background: #514536;
+  border-color: #776444;
+}
+.metrics .service-logo-icon.sonarr-service {
+  background: #2D4554;
+  border-color: #4B6C7D;
+}
+.metrics .metric-icon.green {
+  background: #35513E;
+  color: #C8F1A0;
+}
+.metrics .metric-icon.orange {
+  background: #654E35;
+  color: #FFE1AC;
+}
+/* En thème clair : pictogrammes plus doux et visibles sur les cartes blanches. */
+.light-theme .metrics .metric {
+  background: #FFFFFF;
+  border-color: #E5DEE8;
+}
+.light-theme .metrics .service-logo-icon.radarr-service {
+  background: #4F4537;
+  border-color: #79684B;
+}
+.light-theme .metrics .service-logo-icon.sonarr-service {
+  background: #334E5F;
+  border-color: #65879C;
+}
+.light-theme .metrics .metric-icon.green {
+  background: #DAEBDC;
+  color: #3C8054;
+}
+.light-theme .metrics .metric-icon.orange {
+  background: #F5E6D4;
+  color: #A46D2E;
+}
+/* ================================================= */
+
+
+/* ======================== LOGO GENTLESEED ======================== */
+/* Le logo officiel remplacera le fichier web/assets/gentleseed-logo.svg. */
+.brand-mark {
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  padding: 0;
+  border-radius: 50%;
+}
+.brand-mark .brand-logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: relative;
+  border-radius: inherit;
+}
+/* ================================================= */

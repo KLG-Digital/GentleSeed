@@ -1,0 +1,37 @@
+{
+  "pages": [
+    "dashboard",
+    "search",
+    "activity",
+    "logs",
+    "settings",
+    "system"
+  ],
+  "scripts": [
+    "js/core.js",
+    "js/navigation.js",
+    "js/engine.js",
+    "js/settings.js",
+    "js/indexers.js",
+    "js/tasks.js",
+    "js/activity.js",
+    "js/logs.js",
+    "js/search.js",
+    "js/security.js",
+    "js/integration.js",
+    "js/logcolors.js",
+    "js/overview.js",
+    "js/backups.js",
+    "js/updates.js",
+    "js/system.js",
+    "js/events.js",
+    "js/bootstrap.js"
+  ],
+  "styles": [
+    "css/base.css",
+    "css/components.css",
+    "css/themes.css",
+    "css/responsive.css",
+    "css/overrides.css"
+  ]
+}

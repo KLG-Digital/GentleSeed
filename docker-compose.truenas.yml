@@ -1,0 +1,33 @@
+# GentleSeed — TrueNAS SCALE custom app (paste this YAML) or any Docker Compose host.
+# Uses the published image: nothing to build. No API key in this file: everything is set in the web interface.
+# The named volume survives updates (back it up regularly).
+services:
+  gentleseed:
+    image: starkev/gentleseed:latest
+    container_name: gentleseed
+    restart: unless-stopped
+    # Time to remove the Radarr/Sonarr webhook before the container is killed
+    stop_grace_period: 30s
+    ports:
+      - "${WEB_PORT:-1853}:1853"
+    environment:
+      # Host port, used to build the webhook address given to Radarr/Sonarr
+      WEB_PORT: "${WEB_PORT:-1853}"
+      # Extra host names accepted without an account (see docs/README_DOCKER.md)
+      WEB_ALLOWED_HOSTS: "${WEB_ALLOWED_HOSTS:-}"
+    volumes:
+      - gentleseed_data:/data
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:1853/login', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      start_period: 15s
+      retries: 3
+
+volumes:
+  gentleseed_data:

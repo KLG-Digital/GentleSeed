@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="GentleSeed">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="static/manifest.webmanifest?v={{VERSION}}">
+    <meta name="theme-color" content="#A74784">
+    <title>First setup — GentleSeed</title>
+    <link rel="stylesheet" href="static/style.css?v={{VERSION}}">
+    <link rel="icon" href="static/assets/gentleseed-logo.svg?v={{VERSION}}" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="static/assets/icon-180.png?v={{VERSION}}">
+    <script src="static/theme.js?v={{VERSION}}"></script>
+    <script src="static/i18n.js?v={{VERSION}}" defer></script>
+  </head>
+  <body class="setup-body">
+    <main class="setup-container">
+      <!-- Titre d'accueil -->
+      <div class="setup-hero">
+        <div class="brand-mark large">
+          <!-- Logo : web/assets/gentleseed-logo.svg -->
+          <img class="brand-logo" src="static/assets/gentleseed-logo.svg?v={{VERSION}}" alt="Logo GentleSeed">
+        </div>
+        <div>
+          <span class="kicker">WELCOME · VERSION {{VERSION}}</span>
+          <h1>Let's set up your application</h1>
+          <p>
+            Choose the access mode for the interface. Nothing is predefined: you decide everything at the first launch.
+          </p>
+        </div>
+      </div>
+      <!-- Formulaire : 1 · apparence, 2 · sécurité de l'interface (mode d'accès et compte) -->
+      <form id="setupForm" class="panel setup-panel">
+        <div class="panel-title">
+          <h2>1 · Appearance</h2>
+          <span class="tag tag-cyan">FIRST LAUNCH</span>
+        </div>
+        <div class="setting-row">
+          <div>
+            <strong>Interface language</strong>
+            <p>Choose a language or use the browser's. Indexer data stays unchanged.</p>
+          </div>
+          <select name="language" id="setupLanguage" aria-label="Interface language">
+            <option value="auto" selected>Automatic (browser)</option>
+            <option value="fr">Français</option>
+            <option value="en">English</option>
+            <option value="de">Deutsch</option>
+            <option value="es">Español</option>
+            <option value="it">Italiano</option>
+            <option value="pt-PT">Português (Portugal)</option>
+            <option value="pt-BR">Português (Brasil)</option>
+            <option value="nl">Nederlands</option>
+            <option value="pl">Polski</option>
+            <option value="ru">Русский</option>
+            <option value="ja">日本語</option>
+            <option value="ko">한국어</option>
+            <option value="zh-CN">简体中文</option>
+            <option value="uk">Українська</option>
+          </select>
+        </div>
+        <div class="setting-row">
+          <div>
+            <strong>GentleSeed theme</strong>
+            <p>The look changes immediately and will also apply to the sign-in page.</p>
+          </div>
+          <select name="theme" id="setupTheme" aria-label="Choose the theme">
+            <option value="auto" selected>Automatic (follows the system)</option>
+            <option value="sombre">Dark</option>
+            <option value="clair">Light</option>
+            <option value="maillot-rose">Gentle Mates · Pink</option>
+            <option value="maillot-paris">Gentle Mates · Paris (lavender)</option>
+            <option value="maillot-worlds">Gentle Mates · Blue (ivory and blue)</option>
+            <option value="maillot-noir">Gentle Mates · Dark</option>
+            <option value="maillot-violet">Gentle Mates · Violet (Paris 2027)</option>
+          </select>
+        </div>
+        <div class="setup-theme-caption">
+          <span class="setup-theme-swatch" aria-hidden="true"></span> Preview of the selected theme
+        </div>
+        <div class="panel-title setup-second-section">
+          <h2>2 · Interface security</h2>
+        </div>
+        <div class="setting-row">
+          <div>
+            <strong>Authentication</strong>
+            <p>
+              Form sign-in is recommended. Without authentication, the application is only reachable from the local network (never through a proxy or the Internet).
+            </p>
+          </div>
+          <select name="mode" id="setupMode">
+            <option value="none">None</option>
+            <option value="form" selected>Form (sign-in page)</option>
+          </select>
+        </div>
+        <div id="setupCredentials">
+          <div class="setting-row">
+            <div>
+              <strong>Username</strong>
+              <p>You choose your own username.</p>
+            </div>
+            <input name="username" placeholder="Your username" autocomplete="username" minlength="3" maxlength="48">
+          </div>
+          <div class="setting-row">
+            <div>
+              <strong>Password</strong>
+              <p>You freely choose its length, even a single character. A long password is still recommended.</p>
+            </div>
+            <input name="password" type="password" minlength="1" autocomplete="new-password" placeholder="Choose a password">
+          </div>
+          <div class="setting-row">
+            <div><strong>Confirmation</strong></div>
+            <input name="confirm_password" type="password" minlength="1" autocomplete="new-password" placeholder="Repeat the password">
+          </div>
+        </div>
+        <div class="setup-footer">
+          <p id="setupModeHint"></p>
+          <button class="button button-primary" type="submit">Continue to the application →</button>
+        </div>
+        <p id="setupError" class="login-error" role="alert"></p>
+      </form>
+      <p class="login-footer">GentleSeed · KLG Digital</p>
+    </main>
+    <!-- Première configuration : thème, mode d'accès, compte -->
+    <script>
+      'use strict';
+      const form = document.querySelector('#setupForm');
+      const mode = document.querySelector('#setupMode');
+      const theme = document.querySelector('#setupTheme');
+      const language = document.querySelector('#setupLanguage');
+      theme.addEventListener('change', () => GentleSeedTheme.apply(theme.value));
+      GentleSeedTheme.apply(theme.value);
+
+      // Départ toujours en « Automatic » : un ancien choix gardé par le navigateur (autre installation) est oublié
+      try {
+        localStorage.removeItem('gentleseed.locale');
+      } catch (_) {}
+
+      // La langue change tout de suite sur cette page et sera aussi celle de la page de connexion
+      language.addEventListener('change', () => {
+        try {
+          localStorage.setItem('gentleseed.locale', language.value);
+        } catch (_) {}
+        window.GentleSeedI18n?.apply(language.value);
+      });
+
+      // Champs de compte visibles et obligatoires seulement en mode Formulaire
+      function update() {
+        const isForm = mode.value === 'form';
+        document.querySelector('#setupCredentials').hidden = !isForm;
+        for (const name of ['username', 'password', 'confirm_password']) form.elements[name].required = isForm;
+        document.querySelector('#setupModeHint').textContent = isForm
+          ? 'You choose your own username and password.'
+          : 'Without authentication, access is limited to PCs on the local network';
+      }
+      mode.onchange = update;
+      update();
+
+      form.addEventListener('submit', async event => {
+        event.preventDefault();
+        const button = form.querySelector('button[type=submit]');
+        button.disabled = true;
+        document.querySelector('#setupError').textContent = '';
+        const data = {mode: mode.value, theme: theme.value, language: language.value};
+        if (mode.value === 'form') {
+          for (const key of ['username', 'password', 'confirm_password']) data[key] = form.elements[key].value;
+        }
+        try {
+          const response = await fetch('api/setup', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+          });
+          const answer = await response.json();
+          if (!response.ok) throw Error(answer.detail || 'Unexpected error');
+          location.replace('./#settings');
+        } catch (error) {
+          document.querySelector('#setupError').textContent = error.message;
+          button.disabled = false;
+        }
+      });
+    </script>
+    <!-- Traduction de la page dans la langue choisie -->
+    <script>window.addEventListener("DOMContentLoaded",()=>window.GentleSeedI18n?.apply(localStorage.getItem("gentleseed.locale")||"auto"));</script>
+  </body>
+</html>

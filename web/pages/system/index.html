@@ -1,0 +1,161 @@
+<!-- ======================== SYSTÈME ======================== -->
+<section class="page" id="page-system" hidden>
+  <!-- Titre de la page -->
+  <div class="page-heading">
+    <div>
+      <div class="kicker">DIAGNOSTICS</div>
+      <h1>System</h1>
+      <p>Status, scheduled tasks and logs of this installation.</p>
+    </div>
+  </div>
+  <!-- Onglets (js/security.js : switchTab) -->
+  <nav class="subtabs" aria-label="System sections">
+    <button class="subtab active" type="button" data-system-tab="health">State</button>
+    <button class="subtab" type="button" data-system-tab="tasks">Tasks</button>
+    <button class="subtab" type="button" data-system-tab="files">Log files</button>
+    <button class="subtab" type="button" data-system-tab="backups">Backups</button>
+    <button class="subtab" type="button" data-system-tab="updates">Updates</button>
+  </nav>
+  <!-- Onglet État : informations, santé et versions de Radarr/Sonarr (js/overview.js) -->
+  <div class="system-tab" data-system-content="health">
+    <div class="settings-heading">
+      <h2>Service status</h2>
+      <p>Checks and key information.</p>
+    </div>
+    <article class="panel rows-panel">
+      <div class="fact"><span>Version</span> <strong id="systemVersion">—</strong></div>
+      <div class="fact"><span>Engine</span> <strong>Python · FastAPI</strong></div>
+      <div class="fact"><span>Data folders</span> <strong id="systemDataPath">—</strong></div>
+      <div class="fact"><span>Running for</span> <strong id="systemUptime">—</strong></div>
+      <div class="fact"><span>Monitoring</span> <strong id="systemWatch">—</strong></div>
+    </article>
+    <div class="settings-heading">
+      <h2>Health</h2>
+      <p>Radarr's and Sonarr's own checks, as they display them.</p>
+    </div>
+    <article class="panel" id="overviewHealth">
+      <p class="muted">Loading…</p>
+    </article>
+    <div class="settings-heading">
+      <h2>About Radarr and Sonarr</h2>
+      <p>Versions and environment.</p>
+    </div>
+    <article class="panel rows-panel" id="overviewAbout">
+      <p class="muted">Loading…</p>
+    </article>
+  </div>
+  <!-- Onglet Tâches (js/system.js : loadTasks) -->
+  <div class="system-tab" data-system-content="tasks" hidden>
+    <div class="settings-heading">
+      <h2>Tasks</h2>
+      <p>Runs a check or reads its logs. No button bypasses GentleSeed's protections.</p>
+    </div>
+    <article class="panel">
+      <div class="table-scroll">
+        <table class="data-table tasks-table">
+          <thead>
+            <tr>
+              <th>NAME</th>
+              <th>INTERVAL</th>
+              <th>LAST RUN</th>
+              <th>NEXT RUN</th>
+              <th>STATUS</th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody id="taskRows"></tbody>
+        </table>
+      </div>
+    </article>
+  </div>
+  <!-- Onglet Fichiers journaux (js/system.js : loadLogFiles) -->
+  <div class="system-tab" data-system-content="files" hidden>
+    <div class="settings-heading">
+      <h2>Log files</h2>
+      <p>
+        Automatic addition and refresh every 10 seconds. "Details" shows the dates in your time zone; the downloaded original keeps its UTC times.
+      </p>
+    </div>
+    <article class="panel">
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>FILE NAME</th>
+              <th>SIZE</th>
+              <th>LAST MODIFIED</th>
+              <th>ACTION</th>
+            </tr>
+          </thead>
+          <tbody id="fileRows"></tbody>
+        </table>
+      </div>
+    </article>
+  </div>
+  <!-- Onglet Sauvegardes (js/backups.js) -->
+  <div class="system-tab" data-system-content="backups" hidden>
+    <div class="settings-heading">
+      <h2>Backups</h2>
+      <p>
+        Saves your settings, then restores them in one click. The password, the session and the webhook token are never backed up.
+      </p>
+    </div>
+    <article class="panel">
+      <div class="backup-tools">
+        <button type="button" id="backupCreate" class="button button-primary">Back up now</button>
+        <label class="inline-filter"><input type="checkbox" id="backupKeys"> Include the API keys</label>
+        <button type="button" id="backupImport" class="button button-subtle">Restore from a file</button>
+        <input type="file" id="backupFile" accept="application/json,.json" hidden>
+      </div>
+      <p class="muted" id="backupKeysHint">
+        Without the keys, a restore keeps the current keys. With the keys, the file gives access to Radarr and Sonarr: never share it.
+      </p>
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>NAME</th>
+              <th>DATE</th>
+              <th>SIZE</th>
+              <th>KEYS</th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody id="backupRows">
+            <tr>
+              <td colspan="5">Loading…</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-footer" id="backupFooter"></div>
+    </article>
+  </div>
+  <!-- Onglet Mises à jour (js/updates.js) -->
+  <div class="system-tab" data-system-content="updates" hidden>
+    <div class="settings-heading">
+      <h2>Updates</h2>
+      <p>GentleSeed reads the list of versions published on GitHub. It only informs you: it never updates itself.</p>
+    </div>
+    <article class="panel">
+      <div id="updateBanner" class="update-banner" hidden></div>
+      <div class="backup-tools">
+        <label class="inline-filter"><input type="checkbox" id="updateCheck"> Check for updates</label>
+        <button type="button" id="updateRefresh" class="button button-subtle">Check now</button>
+      </div>
+      <p class="muted" id="updateLinks">
+        Repository:
+        <a class="download-link" href="https://github.com/KLG-Digital/GentleSeed" target="_blank" rel="noopener noreferrer">github.com/KLG-Digital/GentleSeed</a>
+        · Docker image:
+        <a class="download-link" href="https://hub.docker.com/r/starkev/gentleseed" target="_blank" rel="noopener noreferrer">starkev/gentleseed</a>
+      </p>
+      <p class="muted" id="updatePrivacy">
+        A single request is sent to api.github.com (no setting, no address, no key). Result kept for 6 h.
+      </p>
+      <div id="updateList" class="activity-list">
+        <p class="muted">Loading…</p>
+      </div>
+    </article>
+  </div>
+</section>
+<!-- ================================================= -->
